@@ -2,7 +2,7 @@
 
 大学祭HPの編集用リポジトリです。
 
-- 公開ページ：https://yoshikiosedo.github.io/dasai-festival-HP/
+- 公開ページ：https://info-kikakubu.github.io/Kikakubu-HP/
 - 公開元：main ブランチ / リポジトリ直下
 - 掲載文言は content/、表示の組み立ては scripts/main.js、デザインは styles/main.css で管理します。
 
@@ -53,7 +53,7 @@ index.html が編集ファイルを順に読み込んだ後、main.js がペー�
 
 ### 1. 編集するファイルを選ぶ
 
-1. [GitHubリポジトリ](https://github.com/YoshikiOsedo/dasai-festival-HP)を開きます。
+1. [GitHubリポジトリ](https://info-kikakubu.github.io/Kikakubu-HP/)を開きます。
 2. このREADMEの「編集するファイル」表から、変更したい内容に対応するファイルを確認します。
 3. GitHub上で `content` などのフォルダを開き、目的のファイル名を押します。
 
@@ -171,3 +171,20 @@ GitHub Pagesの設定は Settings → Pages → Deploy from a branch → main / 
 - 端末で動きを減らす設定をしている場合は停止状態から開始します。
 - 表示処理は scripts/slideshow.js に分離しています。
 
+## 今後のHP開発予定
+
+
+
+info-kikakubu.github.io/
+├─ index.html            ← 企画部トップ
+├─ about/
+│  └─ index.html         ← 企画部紹介
+└─ de-sai/
+   ├─ index.html         ← デー祭の総合案内
+   └─ 2026/
+      ├─ index.html      ← 現在のデー祭HP
+      ├─ map.html
+      ├─ assets/
+      ├─ content/
+      ├─ scripts/
+      └─ styles/
