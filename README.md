@@ -175,16 +175,16 @@ GitHub Pagesの設定は Settings → Pages → Deploy from a branch → main / 
 
 
 
-info-kikakubu.github.io/
-├─ index.html            ← 企画部トップ
-├─ about/
-│  └─ index.html         ← 企画部紹介
-└─ de-sai/
-   ├─ index.html         ← デー祭の総合案内
-   └─ 2026/
-      ├─ index.html      ← 現在のデー祭HP
-      ├─ map.html
-      ├─ assets/
-      ├─ content/
-      ├─ scripts/
-      └─ styles/
+info-kikakubu.github.io/\
+├─ index.html            ← 企画部トップ\
+├─ about/\
+│  └─ index.html         ← 企画部紹介\
+└─ de-sai/\
+   ├─ index.html         ← デー祭の総合案内\
+   └─ 2026/\
+      ├─ index.html      ← 現在のデー祭HP\
+      ├─ map.html\
+      ├─ assets/\
+      ├─ content/\
+      ├─ scripts/\
+      └─ styles/\
