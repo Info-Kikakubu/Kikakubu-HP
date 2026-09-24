@@ -2,6 +2,6 @@
 window.festivalContent = window.festivalContent || {};
 window.festivalContent.about = {
   "heading": "デーサイ企画部とはどんな集団？",
-  "body": "Comming Soon ..."
+  "body": "Coming Soon ..."
 };
 
