@@ -42,10 +42,13 @@
   const title = content.title || {};
   if (title.pageTitle) document.title = title.pageTitle;
   const header = element("header", "", "page-header");
+  header.id = "title";
+  sections.set("title", header);
   const logoUrl = safeUrl(title.logo);
   const slideshow = window.createFestivalSlideshow?.(content.slideshow || {});
   if (slideshow) {
-    header.append(slideshow);
+    slideshow.id = "slideshow";
+    sections.set("slideshow", slideshow);
   } else if (logoUrl) {
     const image = element("img", "", "logo");
     image.src = logoUrl;
@@ -60,14 +63,14 @@
     if (title[key]?.trim()) overview.append(element("dt", label), element("dd", title[key]));
   });
   if (overview.childElementCount) header.append(overview);
-  root.replaceChildren(header);
+  root.replaceChildren(...(slideshow ? [slideshow, header] : [header]));
 
   const access = content.access || {};
   if (safeUrl(access.image)) {
     const block = section("access", access.heading || "アクセスマップ");
     const figure = element("figure", "", "access-map");
     const link = element("a");
-    link.href = "./map.html";
+    link.href = safeUrl(access.image);
     link.setAttribute("aria-label", "キャンパスマップを拡大して表示");
     const image = element("img", "", "map-image");
     image.src = safeUrl(access.image);
@@ -79,7 +82,7 @@
     addText(block, "p", access.description, "multiline");
   }
 
-  const links = (content.links?.items || []).filter(item => safeUrl(item.url) && item.label);
+  const links = (content.links?.items || []).filter(item => safeUrl(item.url) && (item.label || item.platform || item.account));
   if (links.length) {
     const block = section("links", content.links.heading || "リンク");
     const list = element("div", "", "card-list social-grid");
@@ -239,7 +242,8 @@
         dialog.close();
         // ダイアログを閉じてから、リンク先の見出しへフォーカスを移します。
         requestAnimationFrame(() => {
-          const heading = sections.get(item.target).querySelector("h2");
+          const target = sections.get(item.target);
+          const heading = target.querySelector("h1, h2") || target;
           heading.tabIndex = -1;
           heading.focus({ preventScroll: true });
         });
@@ -267,8 +271,8 @@
     });
     root.append(opener, dialog);
   }
-  // 掲載情報.mdの順：お知らせ → 企画内容 → アクセスマップ → 注意事項 → 企画部紹介 → SNS
-  ["news", "projects", "access", "notices", "about", "links"].forEach(id => {
+  // スライドショー・タイトルに続く本文も、サイドバーと同じ順番で表示します。
+  ["news", "projects", "notices", "access", "links", "about"].forEach(id => {
     if (sections.has(id)) root.append(sections.get(id));
   });
 })();
