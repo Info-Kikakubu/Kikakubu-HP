@@ -6,7 +6,7 @@
 - 公開元：main ブランチ / リポジトリ直下
 - 掲載文言は content/、表示の組み立ては scripts/main.js、デザインは styles/main.css で管理します。
 - ローカル編集は'C:\Users\owner\Desktop\ChatGPT\Workspaces\大学\DS企画部\企画部関連\Kikakubu-HP'で行う。
-- GitHub上での編集は'https://github.com/Info-Kikakubu/Kikakubu-HP'で行う（アカウント名は'Info-Kikakubu'）
+- GitHub上での編集は'https://github.com/Info-Kikakubu/Kikakubu-HP'　で行う（アカウント名は'Info-Kikakubu'）
 
 ## 編集するファイル
 
