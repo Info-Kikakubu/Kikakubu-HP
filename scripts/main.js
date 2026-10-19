@@ -120,7 +120,7 @@
     });
     select.value = "desc";
     controls.append(label, select);
-    const list = element("div", "", "card-list");
+    const list = element("div", "", "news-list");
     function dateValue(value) {
       const parts = String(value || "").match(new RegExp("^([0-9]{4})[./-]([0-9]{1,2})[./-]([0-9]{1,2})$"));
       return parts ? Date.UTC(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])) : 0;
@@ -129,7 +129,7 @@
       const sorted = [...news].sort((a, b) => (select.value === "asc" ? 1 : -1) * (dateValue(a.date) - dateValue(b.date)));
       list.replaceChildren();
       sorted.forEach(item => {
-        const card = element("details", "", "project-disclosure news-disclosure");
+        const card = element("details", "", "news-disclosure");
         const summary = element("summary");
         addText(summary, "h3", item.title);
         const body = element("div", "", "project-body");

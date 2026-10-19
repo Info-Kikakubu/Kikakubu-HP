@@ -39,14 +39,25 @@ window.createFestivalSlideshow = function (config) {
     clearTimeout(timer);
     if (!paused && !document.hidden && ready) timer = setTimeout(advance, delay);
   }
-  function advance() {
+  function showSlide(index) {
     images[current].classList.remove("is-active");
     images[current].setAttribute("aria-hidden", "true");
-    current = (current + 1) % images.length;
+    current = (index + images.length) % images.length;
     images[current].classList.add("is-active");
     images[current].setAttribute("aria-hidden", "false");
     schedule(interval);
   }
+  function advance() { showSlide(current + 1); }
+  [["previous", "前の画像", "◀", -1], ["next", "次の画像", "▶", 1]].forEach(([name, text, icon, step]) => {
+    const arrow = document.createElement("button");
+    arrow.type = "button";
+    arrow.className = "slideshow-arrow slideshow-" + name;
+    arrow.textContent = icon;
+    arrow.setAttribute("aria-label", text);
+    arrow.title = text;
+    arrow.addEventListener("click", () => showSlide(current + step));
+    stage.append(arrow);
+  });
   button.addEventListener("click", () => { paused = !paused; label(); schedule(); });
   document.addEventListener("visibilitychange", () => schedule());
   window.addEventListener("pagehide", () => clearTimeout(timer));

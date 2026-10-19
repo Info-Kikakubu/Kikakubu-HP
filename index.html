@@ -4,7 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>デー祭2026</title>
-  <link rel="stylesheet" href="./styles/main.css?v=oct13a">
+  <script>
+    // 再読み込みでは、履歴のスクロール位置や以前の項目への移動を復元しません。
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
+      if (location.hash) history.replaceState(history.state, "", location.pathname + location.search);
+      const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.addEventListener("DOMContentLoaded", resetScroll, { once: true });
+      window.addEventListener("load", resetScroll, { once: true });
+      window.addEventListener("pageshow", resetScroll, { once: true });
+    }
+  </script>
+  <link rel="stylesheet" href="./styles/main.css?v=oct20a">
   <script defer src="./content/title.js?v=sep17c"></script>
   <script defer src="./content/tabs.js?v=oct13a"></script>
   <script defer src="./content/access.js?v=sep17c"></script>
@@ -14,8 +25,8 @@
   <script defer src="./content/notices.js?v=sep18b"></script>
   <script defer src="./content/about.js?v=sep18b"></script>
   <script defer src="./content/slideshow.js?v=sep18a"></script>
-  <script defer src="./scripts/slideshow.js?v=sep17e"></script>
-  <script defer src="./scripts/main.js?v=oct13a"></script>
+  <script defer src="./scripts/slideshow.js?v=oct20a"></script>
+  <script defer src="./scripts/main.js?v=oct20a"></script>
 </head>
 <body>
   <main id="page">
