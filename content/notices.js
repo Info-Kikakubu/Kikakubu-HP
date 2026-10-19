@@ -4,7 +4,7 @@ window.festivalContent.notices = {
   "heading": "注意事項",
   "items": [
     {
-      "body": "Comming Soon ..."
+      "body": "Coming Soon ..."
     }
   ]
 };
