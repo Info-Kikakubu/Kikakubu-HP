@@ -24,6 +24,11 @@ window.festivalContent.projects = {
       "location": "工学・情報学系講義棟前屋台",
       "price": "1食 500円",
       "payment": "現金のみ"
+    },
+    {
+      "title": "「AI時代 私たちは何を学ぶ？」 学生 × 教員 対談シリーズ動画の上映",
+      "description": "Coming Soon ...",
+      "collapsible": true
     }
   ]
 };
