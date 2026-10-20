@@ -1,0 +1,138 @@
+/* C案：白を基調に、エメラルドの線・ドット・円弧を添えます。 */
+:root {
+  --ink: #183c34;
+  --muted: #536b62;
+  --emerald: #43b991;
+  --link: #17674f;
+  --mint: #eff9f5;
+  --line: #dcebe5;
+  --soft-shadow: 0 3px 14px #183c3408;
+}
+
+body {
+  color: var(--ink);
+  background-color: #fff;
+  background-image:
+    radial-gradient(circle at calc(50% + 650px) 340px, transparent 0 170px, #effaf6 171px 208px, transparent 209px),
+    radial-gradient(circle at calc(50% - 640px) 1100px, transparent 0 90px, #e9f8f2 91px 119px, transparent 120px);
+  background-size: 100% 1800px;
+  background-repeat: repeat-y;
+}
+
+main { position: relative; isolation: isolate; }
+/* 装飾は本文幅の外側に置き、クリックや読み上げの対象にしません。 */
+main::before, main::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 64px;
+  height: 88px;
+  pointer-events: none;
+  background: radial-gradient(circle, #c9eee1 2px, transparent 2.5px) 0 0 / 18px 18px;
+}
+main::before { top: 400px; left: max(12px, calc(50% - 540px)); }
+main::after { top: 1900px; right: max(12px, calc(50% - 540px)); }
+
+.page-header {
+  background: radial-gradient(circle at 100% 0, #f1faf6 0 70px, transparent 71px);
+}
+.section { background: #fff; }
+.section > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  text-align: left;
+  line-height: 1.5;
+}
+.section > h2::before {
+  content: "";
+  flex: 0 0 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--emerald);
+}
+
+.event-details, .card, .project-disclosure, .news-list, .social-link, #about > p {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--emerald);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--soft-shadow);
+}
+.event-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 24px;
+  text-align: left;
+}
+.event-details dt, .event-details dt:not(:first-child) {
+  margin: 0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  color: var(--link);
+  background: var(--mint);
+  text-align: center;
+}
+.event-details dd { margin: 0; }
+#about > p { padding: 20px 24px; }
+
+.news-disclosure + .news-disclosure { border-color: var(--line); }
+.project-disclosure summary, .news-disclosure summary {
+  color: var(--ink);
+  background: #fff;
+}
+.project-disclosure[open] summary { border-color: var(--line); }
+.project-disclosure summary:hover, .news-disclosure summary:hover,
+.social-link:hover, .sidebar-links a:hover { background: var(--mint); }
+.social-link:hover, .sidebar-links a:hover { border-color: var(--emerald); }
+.project-disclosure summary::marker, .news-disclosure summary::marker { color: var(--link); }
+.project-body { background: #fff; }
+
+.platform, .link-label { color: var(--link); }
+.news-date, .map-credit { color: var(--muted); }
+.access-map {
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--soft-shadow);
+}
+.map-image { border: 0; border-radius: 6px; }
+.map-credit { padding: 0 8px 4px; }
+.slideshow-stage { background: #f3f7f5; }
+
+.menu-toggle {
+  color: #fff;
+  background: var(--link);
+  border-color: var(--link);
+  box-shadow: 0 3px 12px #183c341a;
+}
+.menu-toggle:hover { background: #12553f; }
+.sidebar { color: var(--ink); }
+.sidebar::backdrop { background: #183c3459; }
+.menu-close, .sidebar-links a, .news-controls select,
+.slideshow-toggle, .slideshow-arrow {
+  color: var(--link);
+  border-color: var(--line);
+}
+.menu-close { background: var(--mint); }
+a:focus-visible, button:focus-visible, .news-controls select:focus-visible,
+.project-disclosure summary:focus-visible, .news-disclosure summary:focus-visible {
+  outline-color: var(--link);
+}
+
+@media (max-width: 960px) {
+  /* 狭い画面では装飾を控え、本文に重ならないようにします。 */
+  main::before, main::after { display: none; }
+  body { background-image: none; }
+}
+@media (max-width: 480px) {
+  .section > h2 { gap: 10px; }
+  .section > h2::before { flex-basis: 14px; height: 14px; border-radius: 3px; }
+  .event-details { grid-template-columns: 1fr; gap: 8px; padding: 18px; }
+  .event-details dt { justify-self: start; }
+  .event-details dd:not(:last-child) { margin-bottom: 12px; }
+  #about > p { padding: 18px; }
+}
