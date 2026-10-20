@@ -1,7 +1,7 @@
 * { box-sizing: border-box; }
 body { margin: 0; background: #fff; color: #14354d; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
-/* 項目間は、大見出し1行の高さ約1.5個分（標準文字サイズで72px）空けます。 */
-main { min-height: 100vh; min-height: 100svh; margin: auto; padding: 48px 24px; display: flex; flex-direction: column; align-items: center; gap: 4.5rem; }
+/* 項目間は、大見出し1行の高さ約2.5個分（標準文字サイズで120px）空けます。 */
+main { min-height: 100vh; min-height: 100svh; margin: auto; padding: 48px 24px; display: flex; flex-direction: column; align-items: center; gap: 7.5rem; }
 .section, .page-header { max-width: 732px; }
 .page-header { width: 100%; display: grid; justify-items: center; gap: 20px; text-align: center; }
 .logo { display: block; width: min(320px, 100%); height: auto; }
