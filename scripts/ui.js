@@ -147,7 +147,7 @@
     titleBar.append(emblem);
   }
   const slideshow = window.createFestivalSlideshow?.(data.slideshow || {});
-  if (slideshow) { slideshow.id = "slideshow"; header.append(slideshow); }
+  if (slideshow) slideshow.id = "slideshow";
   add(header, "p", title.introduction, "intro-copy multiline");
   const compactFacts = facts(title, eventKeys); compactFacts.classList.add("intro-facts"); header.append(compactFacts);
   const cards = el("section", "", "main-content"); cards.id = "projects";
@@ -183,14 +183,17 @@
   modalHeader.append(modalTitles, close);
   const modalBody = el("div", "", "modal-body content-stack"); dialog.append(modalHeader, modalBody); document.body.append(dialog);
   let opener = null;
+  let slideshowExpanded = false;
+  let resumeSlideshow = false;
   function openModal(panel, body, trigger) {
     opener = trigger || document.activeElement;
     eyebrow.textContent = panel.eyebrow || ""; modalTitle.textContent = panel.title || "";
     dialog.style.setProperty("--panel-accent", accents.test(panel.accent) ? panel.accent : "#43b991");
     modalBody.replaceChildren(body);
     dialog.showModal(); document.body.classList.add("modal-open"); modalBody.scrollTop = 0; close.focus();
-    const slideshow = document.querySelector(".slideshow-toggle");
-    if (slideshow?.getAttribute("data-paused") === "false") slideshow.click();
+    const toggle = document.querySelector(".slideshow-toggle");
+    resumeSlideshow = body !== slideshow && toggle?.getAttribute("data-paused") === "false";
+    if (resumeSlideshow) toggle.click();
   }
   close.addEventListener("click", () => dialog.close());
   dialog.addEventListener("click", event => {
@@ -198,7 +201,14 @@
     const b = dialog.getBoundingClientRect();
     if (event.clientX < b.left || event.clientX > b.right || event.clientY < b.top || event.clientY > b.bottom) dialog.close();
   });
-  dialog.addEventListener("close", () => { document.body.classList.remove("modal-open"); if (opener?.isConnected) opener.focus({ preventScroll: true }); });
+  dialog.addEventListener("close", () => {
+    if (slideshowExpanded) {
+      slideshow.classList.add("slideshow-compact"); quick.prepend(slideshow); slideshowExpanded = false;
+    }
+    document.body.classList.remove("modal-open");
+    if (resumeSlideshow) { document.querySelector(".slideshow-toggle")?.click(); resumeSlideshow = false; }
+    if (opener?.isConnected) opener.focus({ preventScroll: true });
+  });
   (ui.panels || []).forEach((panel, index) => {
     const project = projects[panel.project] || {};
     const button = el("button", "", "event-panel"); button.type = "button"; button.id = "panel-" + panel.id;
@@ -222,7 +232,22 @@
     });
     grid.append(button);
   });
-  const quick = el("nav", "", "quick-menu"); quick.setAttribute("aria-label", "SNS・アクセス");
+  const quick = el("nav", "", "quick-menu"); quick.setAttribute("aria-label", "写真・SNS・アクセス");
+  let slideshowZoom;
+  function expandSlideshow() {
+    if (!slideshow || dialog.open) return;
+    slideshowExpanded = true; slideshow.classList.remove("slideshow-compact");
+    openModal({ title: "写真スライドショー", eyebrow: "PHOTOS" }, slideshow, slideshowZoom);
+  }
+  if (slideshow) {
+    slideshow.classList.add("slideshow-compact");
+    slideshowZoom = el("button", "", "slideshow-zoom"); slideshowZoom.type = "button";
+    slideshowZoom.setAttribute("aria-label", "写真スライドショーを拡大して表示");
+    slideshowZoom.setAttribute("aria-haspopup", "dialog"); slideshowZoom.setAttribute("aria-controls", dialog.id);
+    slideshowZoom.addEventListener("click", expandSlideshow);
+    slideshow.querySelector(".slideshow-stage")?.append(slideshowZoom);
+    quick.append(slideshow);
+  }
   [["sns", ui.snsPanel, snsBody, "SNS", "SNSリンクを開く"], ["map", ui.mapPanel, mapBody, "アクセス", "地図・アクセスを開く"]].forEach(([name, panel, render, label, aria]) => {
     const button = el("button", "", "quick-button"); button.type = "button"; button.id = "quick-" + name;
     button.setAttribute("aria-label", aria); button.setAttribute("aria-haspopup", "dialog"); button.setAttribute("aria-controls", dialog.id);
@@ -234,6 +259,7 @@
     let id; try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     if (id === "access") { openModal(ui.mapPanel || {}, mapBody(), document.getElementById("quick-map")); return; }
     if (id === "links") { openModal(ui.snsPanel || {}, snsBody(), document.getElementById("quick-sns")); return; }
+    if (id === "slideshow") { expandSlideshow(); return; }
     if (id === "festival-info") id = "title";
     const target = document.getElementById(id);
     if (!target) return;
