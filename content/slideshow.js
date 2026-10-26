@@ -8,6 +8,9 @@ window.festivalContent.slideshow = {
     { src: "./assets/slideshow/demo2.jpg", alt: "スライド写真 2" },
     { src: "./assets/slideshow/demo3.jpg", alt: "スライド写真 3" },
     { src: "./assets/slideshow/demo4.jpg", alt: "スライド写真 4" },
-    { src: "./assets/slideshow/PXL_20260930_084350307.MP.jpg", alt: "スライド写真 5"}
+    { src: "./assets/slideshow/PXL_20260930_084350307.MP.jpg", alt: "スライド写真 5"},
+    { src: "./assets/slideshow/対談動画サムネイル.png", alt: "AI時代 私たちは何を学ぶ？ 対談動画" },
+    { src: "./assets/slideshow/CampusQuestタイトル.png", alt: "Campus Quest タイトル画面" },
+    { src: "./assets/slideshow/学部エンブレム.png", alt: "情報・データサイエンス学部エンブレム" }
   ]
 };

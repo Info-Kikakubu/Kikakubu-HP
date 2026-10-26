@@ -25,6 +25,15 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
       }));
       assert.equal(state.columns, width >= 900 ? 4 : 2); assert.equal(state.cards, 5); assert.equal(state.disclosures, 3);
       assert.equal(state.overflow, false); assert.equal(state.clipped, false);
+      assert.equal(await page.locator('.panel-thumbnail img').count(), 4);
+      for (const img of await page.locator('.panel-thumbnail img, .title-emblem').all()) {
+        await img.evaluate(i => i.decode());
+        assert.ok(await img.evaluate(i => i.naturalWidth > 0));
+      }
+      const titleRect = await page.locator('.site-title-bar h1').boundingBox();
+      const emblemRect = await page.locator('.title-emblem').boundingBox();
+      assert.ok(emblemRect.x >= titleRect.x + titleRect.width, 'emblem is right of the title');
+      assert.ok(Math.abs(emblemRect.y + emblemRect.height / 2 - titleRect.y - titleRect.height / 2) < 2);
       const food = await page.locator('#panel-food').boundingBox();
       const campus = await page.locator('#panel-campus-quest').boundingBox();
       const remake = await page.locator('#panel-game-remake').boundingBox();
@@ -109,8 +118,8 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
       };
     });
     await page.goto(target);
-    await page.waitForFunction(() => document.querySelectorAll(".slideshow-image").length === 2 && [...document.querySelectorAll(".slideshow-image")].every(i => i.complete && i.naturalWidth > 0));
-    assert.equal(await page.locator(".slideshow-image").count(), 2);
+    await page.waitForFunction(() => document.querySelectorAll(".slideshow-image").length === 5 && [...document.querySelectorAll(".slideshow-image")].every(i => i.complete && i.naturalWidth > 0));
+    assert.equal(await page.locator(".slideshow-image").count(), 5);
     assert.equal(errors.length, 0, errors.join("\n"));
     console.log("PASS 200% text and missing-photo fallback; no JavaScript errors");
   } finally { await browser.close(); }

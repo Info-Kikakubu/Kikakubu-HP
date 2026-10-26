@@ -15,6 +15,8 @@ content/ui.js を編集します。
 - panels: トップの企画カード。id は重複しない文字列、project は projects.js の items の番号（0始まり）。title / eyebrow / description はカード・モーダル用の表示文。accent は #43b991 のような6桁の色コード。
 - exhibit: 展示物一覧の何番目を紹介するか（0始まり）。省略可能。
 - span: `2`で横2枠のカードになります。現在は先頭の食堂カードに設定し、PCでは他の4カードの上段、スマートフォンでは先頭行に表示します。
+- thumbnail / thumbnailAlt: カードに表示する画像パスと代替テキスト。画像を指定しないカードは従来のアイコンを表示します。
+- titleEmblem: タイトル右側の画像。src / altで画像パスと代替テキストを設定します。
 - additionalInfo: 折りたたみの number / title / lead / body / notes。source は既存の情報を読み込む対応名（news、festival、notices、about）。配列に項目を追加すると自動で増えます。
 - snsPanel / mapPanel: 右下のクイックメニューで開くモーダルの見出し等。SNSや地図の実データは従来の links.js / access.js で編集します。
 

@@ -141,6 +141,11 @@
   const header = el("header", "", "site-intro"); header.id = "title";
   const titleBar = el("div", "", "site-title-bar");
   titleBar.append(el("h1", title.heading || title.pageTitle));
+  if (url(ui.titleEmblem?.src)) {
+    const emblem = el("img", "", "title-emblem");
+    emblem.src = url(ui.titleEmblem.src); emblem.alt = ui.titleEmblem.alt || "";
+    titleBar.append(emblem);
+  }
   const slideshow = window.createFestivalSlideshow?.(data.slideshow || {});
   if (slideshow) { slideshow.id = "slideshow"; header.append(slideshow); }
   add(header, "p", title.introduction, "intro-copy multiline");
@@ -201,7 +206,11 @@
     button.setAttribute("aria-haspopup", "dialog"); button.setAttribute("aria-controls", dialog.id);
     button.style.setProperty("--panel-accent", accents.test(panel.accent) ? panel.accent : "#43b991");
     const top = el("span", "", "panel-top"); top.append(el("span", String(index + 1).padStart(2, "0"), "panel-number"), el("span", "↗", "panel-arrow"));
-    const illustration = el("span", "", "panel-icon"); illustration.append(icon(panel.icon));
+    const illustration = el("span", "", panel.thumbnail ? "panel-thumbnail" : "panel-icon");
+    if (url(panel.thumbnail)) {
+      const thumbnail = el("img"); thumbnail.src = url(panel.thumbnail); thumbnail.alt = panel.thumbnailAlt || "";
+      illustration.append(thumbnail);
+    } else illustration.append(icon(panel.icon));
     const bottom = el("span", "", "panel-copy"); add(bottom, "span", panel.eyebrow, "panel-eyebrow"); bottom.append(el("span", panel.title || project.title, "panel-title"));
     button.append(top, illustration, bottom);
     button.addEventListener("click", () => {

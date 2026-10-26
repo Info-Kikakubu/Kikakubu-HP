@@ -16,6 +16,8 @@ main.festival-page { display: block; max-width: 1180px; margin: auto; padding: 7
 .site-intro { padding-bottom: 44px; text-align: center; }
 .site-title-bar { position: sticky; top: 0; z-index: 6; padding: 16px 0; background: var(--paper, #fff); border-bottom: 1px solid var(--line); margin-bottom: 24px; text-align: center; }
 .site-title-bar h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.2; letter-spacing: -.045em; font-weight: 800; }
+.site-title-bar { display: flex; align-items: center; justify-content: center; gap: clamp(10px, 2vw, 22px); }
+.title-emblem { display: block; width: clamp(44px, 6vw, 70px); height: clamp(44px, 6vw, 70px); object-fit: contain; flex-shrink: 0; }
 html { scroll-padding-top: 100px; }
 main.festival-page { padding-top: 0; }
 .intro-copy { max-width: 660px; margin: 20px auto 24px; color: var(--muted); font-size: .9rem; }
@@ -39,6 +41,8 @@ main.festival-page { padding-top: 0; }
 .panel-arrow { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--line); border-radius: 50%; font-size: 1rem; color: var(--link); }
 .panel-icon { align-self: center; display: grid; place-items: center; width: 54px; height: 54px; background: var(--mint); color: var(--link); border-radius: 16px; }
 .panel-icon svg { width: 30px; height: 30px; }
+.panel-thumbnail { display: block; align-self: center; width: 100%; aspect-ratio: 16 / 9; margin: 10px 0; }
+.panel-thumbnail img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
 svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .panel-copy { display: block; }
 .panel-eyebrow { display: block; color: var(--muted); font-size: .7rem; margin-bottom: 6px; }
