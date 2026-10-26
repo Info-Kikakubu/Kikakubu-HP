@@ -23,13 +23,36 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
         overflow: document.documentElement.scrollWidth > innerWidth,
         clipped: [...document.querySelectorAll(".event-panel")].some(e => e.scrollHeight > e.clientHeight + 1)
       }));
-      assert.equal(state.columns, width >= 900 ? 4 : 2); assert.equal(state.cards, 4); assert.equal(state.disclosures, 4);
+      assert.equal(state.columns, width >= 900 ? 4 : 2); assert.equal(state.cards, 5); assert.equal(state.disclosures, 3);
       assert.equal(state.overflow, false); assert.equal(state.clipped, false);
-      for (let index = 0; index < 4; index++) {
+      const food = await page.locator('#panel-food').boundingBox();
+      const campus = await page.locator('#panel-campus-quest').boundingBox();
+      const remake = await page.locator('#panel-game-remake').boundingBox();
+      assert.ok(Math.abs(food.x - campus.x) < 2);
+      assert.ok(Math.abs(food.x + food.width - remake.x - remake.width) < 2, 'food spans exactly two cards');
+      assert.ok(food.y + food.height <= campus.y, 'food is above CampusQuest and remake');
+      assert.ok(Math.abs(food.height - campus.height) < 2, 'food has one-card height');
+      assert.equal(await page.locator('#festival-info').count(), 0);
+      assert.equal(await page.locator('#slideshow').evaluate(e => e.parentElement.id), 'title');
+      const border = await page.locator('#quick-map').evaluate(e => getComputedStyle(e).borderTopWidth);
+      assert.equal(border, '2px');
+      await page.evaluate(() => scrollTo(0, 500));
+      assert.ok(Math.abs((await page.locator('.site-title-bar').boundingBox()).y) < 2, 'title sticks to viewport top');
+      await page.evaluate(() => scrollTo(0, 0));
+      let modalText = '';
+      for (let index = 0; index < 5; index++) {
         const card = page.locator(".event-panel").nth(index); await card.click();
         assert.equal(await page.locator("dialog").evaluate(e => e.open), true);
         assert.equal(await page.locator(".modal-close").evaluate(e => e === document.activeElement), true);
         assert.equal(await page.locator("body").evaluate(e => getComputedStyle(e).overflow), "hidden");
+        modalText += ' ' + await page.locator('.modal-body').textContent();
+        const project = await page.evaluate(i => window.festivalContent.projects.items[window.festivalContent.ui.panels[i].project], index);
+        assert.ok(normalize(await page.locator('.modal-body').textContent()).includes(normalize(project.description)), 'original project description in modal');
+        if (index === 0) {
+          assert.ok((await page.locator('.modal-body').textContent()).includes('1食 500円'));
+          assert.ok((await page.locator('.modal-body').textContent()).includes(project.orderInstructions));
+          assert.ok((await page.locator('.modal-body').textContent()).includes(project.notes));
+        }
         const b = await page.locator("dialog").boundingBox();
         if (width <= 600) assert.ok(Math.abs(b.y + b.height - 900) <= 2, "bottom sheet");
         else assert.ok(Math.abs((b.x + b.width / 2) - await page.evaluate(() => innerWidth / 2)) < 10, "centered dialog");
@@ -40,7 +63,7 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
         assert.equal(await card.evaluate(e => e === document.activeElement), true, "restore trigger focus");
       }
       const raw = await page.evaluate(() => window.festivalContent);
-      const allText = normalize(await page.locator("body").textContent());
+      const allText = normalize(await page.locator("body").textContent() + modalText);
       const retained = [raw.title.heading, raw.title.introduction, raw.title.date, raw.title.time, raw.title.venue, raw.news.heading, raw.notices.heading, raw.about.heading, raw.about.body];
       raw.news.items.forEach(item => retained.push(item.title, item.date, item.body));
       raw.projects.items.forEach(item => retained.push(...["title", "description", "orderInstructions", "date", "time", "location", "price", "participation", "payment", "notes"].map(key => item[key]), ...(item.exhibits || [])));
@@ -58,11 +81,11 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
         }
         await page.keyboard.press("Escape"); await page.waitForFunction(() => !document.querySelector("dialog").open);
       }
-      await page.locator("#news > summary").click(); await page.locator("#festival-info > summary").click();
-      assert.equal(await page.locator("#news").evaluate(e => e.open), true); assert.equal(await page.locator("#festival-info").evaluate(e => e.open), true);
+      await page.locator("#news > summary").click(); await page.locator("#notices > summary").click();
+      assert.equal(await page.locator("#news").evaluate(e => e.open), true); assert.equal(await page.locator("#notices").evaluate(e => e.open), true);
       await page.locator("#news-sort").selectOption("asc");
       assert.equal(await page.locator(".news-items summary").first().textContent().then(normalize), normalize(raw.news.items[0].date + raw.news.items[0].title + "+"));
-      await page.goto(target + "#slideshow"); assert.equal(await page.locator("#festival-info").evaluate(e => e.open), true);
+      await page.goto(target + "#slideshow"); await page.locator('#slideshow').waitFor();
       await page.goto(target + "#access"); await page.waitForFunction(() => document.querySelector("dialog").open); await page.keyboard.press("Escape");
       await page.goto(target);
       await page.screenshot({ path: path.join(screenshots, "home-" + width + ".png"), fullPage: true });
@@ -85,7 +108,7 @@ const normalize = text => text.replace(/\s+/g, " ").trim();
         return decode.call(this);
       };
     });
-    await page.goto(target); await page.locator("#festival-info > summary").click();
+    await page.goto(target);
     await page.waitForFunction(() => document.querySelectorAll(".slideshow-image").length === 2 && [...document.querySelectorAll(".slideshow-image")].every(i => i.complete && i.naturalWidth > 0));
     assert.equal(await page.locator(".slideshow-image").count(), 2);
     assert.equal(errors.length, 0, errors.join("\n"));

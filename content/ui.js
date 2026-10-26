@@ -2,6 +2,7 @@
 window.festivalContent = window.festivalContent || {};
 window.festivalContent.ui = {
   panels: [
+    { id: "food", project: 1, title: "デー祭食堂", eyebrow: "食べ物販売", description: "ソース焼きそば", icon: "food", accent: "#43b991", span: 2 },
     { id: "campus-quest", project: 0, title: "CampusQuest", eyebrow: "ゲーム・展示", icon: "quest", accent: "#43b991", exhibit: 0 },
     { id: "game-remake", project: 0, title: "クソゲー再現", eyebrow: "ゲーム・展示", icon: "game", accent: "#43b991" },
     { id: "programming-game", project: 0, title: "プログラミング教養を兼ねたゲーム体験", eyebrow: "ゲーム体験", icon: "code", accent: "#43b991" },
@@ -11,9 +12,8 @@ window.festivalContent.ui = {
   // 複数の折りたたみ項目を同時に開けます。
   additionalInfo: [
     { number: "01", source: "news", title: "お知らせ", lead: "更新情報を確認する", notes: [] },
-    { number: "02", source: "festival", title: "開催情報・企画の詳細", lead: "日時・会場・食堂のご案内と写真", notes: [] },
-    { number: "03", source: "notices", title: "注意事項", lead: "ご来場の前にご確認ください", notes: [] },
-    { number: "04", source: "about", title: "団体紹介", lead: "デーサイ企画部について", notes: [] }
+    { number: "02", source: "notices", title: "注意事項", lead: "ご来場の前にご確認ください", notes: [] },
+    { number: "03", source: "about", title: "団体紹介", lead: "デーサイ企画部について", notes: [] }
   ],
   snsPanel: { eyebrow: "SNS", title: "各種SNSへのリンク", source: "links", accent: "#43b991" },
   mapPanel: { eyebrow: "ACCESS", title: "アクセスマップ", source: "access", accent: "#43b991" }

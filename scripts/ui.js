@@ -8,6 +8,7 @@
   const projects = data.projects?.items || [];
   const accents = /^#[0-9a-f]{6}$/i;
   const paths = {
+    food: "M4 11h16l-2 9H6l-2-9ZM3 11h18M8 3v5m4-5v5m4-5v5",
     quest: "M8 3h8v6l-4 3-4-3V3ZM12 12v9M6 17h12",
     game: "M7 7h10l4 9a3 3 0 0 1-5 3l-2-2h-4l-2 2a3 3 0 0 1-5-3L7 7ZM7 11v5M4.5 13.5h5M16 12h.01M18 15h.01",
     code: "m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20",
@@ -138,7 +139,10 @@
   document.title = title.pageTitle || "デー祭2026";
   root.className = "festival-page";
   const header = el("header", "", "site-intro"); header.id = "title";
-  header.append(el("h1", title.heading || title.pageTitle));
+  const titleBar = el("div", "", "site-title-bar");
+  titleBar.append(el("h1", title.heading || title.pageTitle));
+  const slideshow = window.createFestivalSlideshow?.(data.slideshow || {});
+  if (slideshow) { slideshow.id = "slideshow"; header.append(slideshow); }
   add(header, "p", title.introduction, "intro-copy multiline");
   const compactFacts = facts(title, eventKeys); compactFacts.classList.add("intro-facts"); header.append(compactFacts);
   const cards = el("section", "", "main-content"); cards.id = "projects";
@@ -163,7 +167,7 @@
     details.append(summary, body); additional.append(details);
   });
   const footer = el("footer", "© " + (title.pageTitle || title.heading), "site-footer");
-  root.replaceChildren(header, cards, additional, footer);
+  root.replaceChildren(titleBar, header, cards, additional, footer);
 
   // 共通dialog：標準のフォーカストラップとEscape操作を利用します。
   const dialog = el("dialog", "", "detail-modal"); dialog.id = "detail-modal";
@@ -193,6 +197,7 @@
   (ui.panels || []).forEach((panel, index) => {
     const project = projects[panel.project] || {};
     const button = el("button", "", "event-panel"); button.type = "button"; button.id = "panel-" + panel.id;
+    if (panel.span === 2) button.classList.add("event-panel-wide");
     button.setAttribute("aria-haspopup", "dialog"); button.setAttribute("aria-controls", dialog.id);
     button.style.setProperty("--panel-accent", accents.test(panel.accent) ? panel.accent : "#43b991");
     const top = el("span", "", "panel-top"); top.append(el("span", String(index + 1).padStart(2, "0"), "panel-number"), el("span", "↗", "panel-arrow"));
@@ -202,9 +207,8 @@
     button.addEventListener("click", () => {
       const body = el("div", "", "content-stack");
       add(body, "p", panel.description, "multiline");
-      if (Number.isInteger(panel.exhibit) && project.exhibits?.[panel.exhibit]) add(body, "p", project.exhibits[panel.exhibit], "exhibit-highlight multiline");
       if (project.title && project.title !== panel.title) add(body, "h3", project.title);
-      body.append(projectBody(project, false));
+      body.append(projectBody(project));
       openModal({ ...panel, title: panel.title || project.title }, body, button);
     });
     grid.append(button);
@@ -221,6 +225,7 @@
     let id; try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     if (id === "access") { openModal(ui.mapPanel || {}, mapBody(), document.getElementById("quick-map")); return; }
     if (id === "links") { openModal(ui.snsPanel || {}, snsBody(), document.getElementById("quick-sns")); return; }
+    if (id === "festival-info") id = "title";
     const target = document.getElementById(id);
     if (!target) return;
     let ancestor = target;
