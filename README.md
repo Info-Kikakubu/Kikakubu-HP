@@ -1,5 +1,9 @@
 # dasai-festival-HP
 
+> **2026-10-26 UI刷新**：現在の画面は、4つの企画カード・詳細モーダル・4つの折りたたみ・SNS/アクセスのクイックメニューで構成しています。
+> 新UIの編集箇所とビルド・検証方法は [UI編集ガイド](docs/UI編集ガイド.md) を参照してください。本文は既存の `content/`、カード設定は `content/ui.js`、画面の組み立ては `scripts/ui.js`、レイアウトは `styles/ui.css` です。公開URLと公開元は変わりません。
+> 以下には旧UIの操作説明も残っています。UIに関する手順は上記ガイドを優先してください。
+
 大学祭HPの編集用リポジトリです。
 
 - 公開ページ：https://info-kikakubu.github.io/Kikakubu-HP/

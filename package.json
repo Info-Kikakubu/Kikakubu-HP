@@ -1,0 +1,8 @@
+{
+  "name": "kikakubu-hp",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test:ui": "node tests/ui.cjs"
+  }
+}

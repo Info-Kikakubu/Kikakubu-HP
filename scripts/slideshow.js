@@ -64,7 +64,27 @@ window.createFestivalSlideshow = function (config) {
   window.addEventListener("pageshow", () => schedule());
   label();
   stage.append(button);
-  Promise.all(images.map(image => image.decode().catch(() => {}))).then(() => {
+  // 削除済み・読込失敗の写真は切替対象から除外し、空のフレームを出しません。
+  Promise.all(images.map(image => image.decode().then(() => image, () => null))).then(results => {
+    const loaded = results.filter(Boolean);
+    images.forEach(image => { if (!loaded.includes(image)) image.remove(); });
+    images.splice(0, images.length, ...loaded);
+    if (!images.length) {
+      const message = document.createElement("p");
+      message.textContent = "写真を読み込めませんでした。";
+      message.setAttribute("role", "status");
+      wrapper.replaceChildren(message);
+      return;
+    }
+    current = 0;
+    images.forEach((image, index) => {
+      image.classList.toggle("is-active", index === 0);
+      image.setAttribute("aria-hidden", String(index !== 0));
+    });
+    if (images.length === 1) {
+      stage.querySelectorAll("button").forEach(control => control.remove());
+      return;
+    }
     ready = true;
     schedule();
   });

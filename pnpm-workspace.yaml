@@ -1,0 +1,2 @@
+# ビルドは依存パッケージ不要。実行前の自動インストールを行いません。
+verifyDepsBeforeRun: false

@@ -1,0 +1,154 @@
+/* 仕様書対応UI。既存のエメラルド色・白い面・淡い円弧とドットを継承します。 */
+html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+body { color: var(--ink, #183c34); }
+button, select { font: inherit; }
+button, a, summary, select { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+a { color: var(--link); }
+a:focus-visible, button:focus-visible, summary:focus-visible, select:focus-visible {
+  outline: 3px solid var(--link); outline-offset: 5px;
+}
+.skip-link { position: fixed; top: 12px; left: 16px; z-index: 100; padding: 12px 18px; background: #fff; border: 2px solid var(--link); border-radius: 8px; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+main.festival-page { display: block; max-width: 1180px; margin: auto; padding: 72px 32px 200px; min-height: 100svh; }
+.festival-page::before { top: 90px; left: -55px; }
+.festival-page::after { top: 720px; right: -50px; }
+.site-intro { padding-bottom: 44px; text-align: center; }
+.site-intro h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.2; letter-spacing: -.045em; font-weight: 800; }
+.intro-copy { max-width: 660px; margin: 20px auto 24px; color: var(--muted); font-size: .9rem; }
+.intro-facts { display: grid; grid-template-columns: auto auto; justify-content: center; align-items: baseline; gap: 6px 14px; font-size: .9rem; margin: 0; text-align: left; }
+.intro-facts dt { font-size: .75rem; color: var(--link); }
+.intro-facts dd { white-space: normal; }
+.main-content > h2, .additional-info > h2 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 1.15rem; text-align: left; letter-spacing: .06em; }
+.main-content > h2::before, .additional-info > h2::before { content: ""; width: 10px; height: 10px; border-radius: 3px; background: var(--emerald); }
+.panel-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.event-panel { position: relative; aspect-ratio: 1; width: 100%; min-width: 0; display: grid; grid-template-rows: auto 1fr auto; padding: 22px; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: 0 4px 20px #183c3406; text-align: left; cursor: pointer; transition: transform .2s, box-shadow .2s; }
+.event-panel::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--panel-accent); transform: scaleX(0); transform-origin: left; transition: transform .2s; }
+.panel-top { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: .75rem; letter-spacing: .1em; }
+.panel-arrow { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--line); border-radius: 50%; font-size: 1rem; color: var(--link); }
+.panel-icon { align-self: center; display: grid; place-items: center; width: 54px; height: 54px; background: var(--mint); color: var(--link); border-radius: 16px; }
+.panel-icon svg { width: 30px; height: 30px; }
+svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.panel-copy { display: block; }
+.panel-eyebrow { display: block; color: var(--muted); font-size: .7rem; margin-bottom: 6px; }
+.panel-title { display: block; font-size: clamp(.95rem, 1.5vw, 1.3rem); font-weight: 750; line-height: 1.5; overflow-wrap: anywhere; }
+.event-panel:focus-visible::before { transform: scaleX(1); }
+@media (hover: hover) {
+  .event-panel:hover { transform: translateY(-5px); box-shadow: 0 12px 28px #183c3410; }
+  .event-panel:hover::before { transform: scaleX(1); }
+  .quick-button:hover { background: var(--mint); transform: translateY(-3px); }
+  .sns-link:hover { background: var(--mint); border-color: var(--emerald); }
+  .info-disclosure > summary:hover, .nested-disclosure > summary:hover { background: #f7fbf9; }
+}
+.additional-info { margin-top: 64px; }
+.info-disclosure { margin-top: 12px; border: 1px solid var(--line); border-radius: 14px; background: #fff; overflow: clip; }
+summary { cursor: pointer; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+.info-disclosure > summary { display: flex; align-items: center; gap: 20px; padding: 22px 26px; min-height: 88px; }
+.info-disclosure > summary:focus-visible, .nested-disclosure > summary:focus-visible { outline-offset: -4px; }
+.info-number { display: grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 10px; background: var(--mint); color: var(--link); font-size: .75rem; letter-spacing: .04em; }
+.info-heading { display: flex; align-items: baseline; flex: 1; min-width: 0; gap: 24px; }
+.info-title { font-size: 1rem; font-weight: 700; }
+.info-lead { color: var(--muted); font-size: .8rem; }
+.expand-icon { flex: 0 0 24px; text-align: center; font-size: 1.4rem; color: var(--link); font-weight: 400; }
+details[open] > summary > .expand-icon { transform: rotate(45deg); }
+.info-disclosure[open] > summary { border-bottom: 1px solid var(--line); }
+.info-body { padding: 28px; }
+.content-stack { display: grid; gap: 16px; min-width: 0; }
+.content-stack > h3, .content-stack > h4 { margin: 4px 0 0; font-size: 1rem; line-height: 1.7; }
+.content-stack > p { line-height: 1.9; }
+.multiline { white-space: pre-line; overflow-wrap: anywhere; line-height: 1.9; }
+.facts { margin: 0; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: #f9fcfa; display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 8px 20px; font-size: .9rem; }
+.facts dt { color: var(--link); }
+.facts dd { white-space: pre-line; overflow-wrap: anywhere; }
+.intro-facts { padding: 0; border: 0; background: transparent; border-radius: 0; grid-template-columns: auto auto; justify-content: center; }
+.nested-disclosure { border: 1px solid var(--line); border-radius: 10px; background: white; overflow: clip; }
+.nested-disclosure > summary { min-height: 56px; display: flex; align-items: center; gap: 14px; padding: 16px 18px; font-size: .95rem; font-weight: 650; }
+.nested-disclosure > summary > span:not(.news-date):not(.expand-icon) { flex: 1; }
+.nested-disclosure[open] > summary { border-bottom: 1px solid var(--line); }
+.nested-body { padding: 20px; }
+.news-items { display: grid; gap: 10px; }
+.news-date { color: var(--muted); font-size: .75rem; font-weight: 400; flex: 0 0 88px; }
+.news-controls { margin: 0; font-size: .8rem; }
+.news-controls select { min-height: 44px; color: var(--ink); border-color: var(--line); }
+.text-link { width: fit-content; min-height: 44px; display: inline-flex; align-items: center; text-underline-offset: 4px; font-weight: 650; overflow-wrap: anywhere; }
+.content-image { display: block; width: 100%; height: auto; border-radius: 8px; }
+.note-tags { margin: 0; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; list-style: none; }
+.note-tags li { padding: 6px 12px; background: var(--mint); color: var(--link); border-radius: 6px; font-size: .8rem; }
+.slideshow { width: 100%; }
+.slideshow-stage { border-radius: 12px; }
+.slideshow-toggle, .slideshow-arrow { width: 44px; height: 44px; }
+.site-footer { margin-top: 48px; text-align: center; font-size: .75rem; color: var(--muted); }
+.quick-menu { position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); z-index: 5; display: flex; gap: 12px; }
+.quick-button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 72px; height: 72px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--link); box-shadow: 0 4px 20px #183c341a; cursor: pointer; transition: transform .2s; }
+.quick-button svg { width: 24px; height: 24px; }
+.quick-button span { font-size: .65rem; font-weight: 700; }
+.detail-modal { width: min(720px, calc(100% - 64px)); max-width: none; max-height: min(86dvh, 900px); margin: auto; padding: 0; border: 1px solid var(--line); border-top: 5px solid var(--panel-accent, #43b991); border-radius: 22px; background: #fff; color: var(--ink); box-shadow: 0 24px 100px #183c3430; overflow: hidden; }
+.detail-modal[open] { display: flex; flex-direction: column; }
+.detail-modal::backdrop { background: #102c2466; }
+.modal-header { display: flex; align-items: flex-start; gap: 20px; padding: 28px 28px 22px; border-bottom: 1px solid var(--line); flex: 0 0 auto; }
+.modal-header > div { flex: 1; min-width: 0; }
+.modal-eyebrow { font-size: .7rem; color: var(--link); font-weight: 700; letter-spacing: .08em; margin: 0 0 8px; }
+.modal-header h2 { margin: 0; font-size: 1.45rem; line-height: 1.5; text-align: left; overflow-wrap: anywhere; }
+.modal-close { flex: 0 0 auto; min-width: 76px; min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--link); background: var(--mint); cursor: pointer; font-size: .8rem; }
+.modal-body { display: block; padding: 28px; overflow-y: auto; overscroll-behavior: contain; scroll-behavior: auto; }
+.modal-body > * + * { margin-top: 20px; }
+.modal-open { overflow: hidden; }
+.exhibit-highlight { padding: 18px; border-left: 3px solid var(--emerald); background: var(--mint); border-radius: 8px; }
+.sns-list { display: grid; gap: 12px; }
+.sns-link { display: flex; align-items: center; gap: 18px; min-height: 88px; padding: 20px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; color: var(--ink); }
+.sns-link img { width: 32px; height: 32px; object-fit: contain; flex: 0 0 auto; }
+.sns-link .content-stack { gap: 4px; flex: 1; }
+.sns-link span span { font-size: .8rem; line-height: 1.7; overflow-wrap: anywhere; }
+.link-arrow { color: var(--link); font-size: 1.3rem; }
+.map-figure { margin: 0; }
+.map-figure figcaption { margin-top: 12px; text-align: right; color: var(--muted); font-size: .75rem; }
+@media (max-width: 1100px) { .festival-page::before, .festival-page::after { display: none; } }
+@media (max-width: 899px) {
+  main.festival-page { max-width: 700px; padding: 48px 24px 180px; }
+  .panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .event-panel { padding: 22px; }
+  .panel-title { font-size: 1.2rem; }
+  .info-heading { flex-direction: column; gap: 4px; }
+}
+@media (max-width: 600px) {
+  main.festival-page { padding: 36px 20px 160px; }
+  .site-intro { padding-bottom: 32px; }
+  .site-intro h1 { font-size: clamp(2.4rem, 10vw, 3.4rem); }
+  .intro-copy { margin: 16px auto 20px; font-size: .75rem; }
+  .intro-facts { font-size: .75rem; gap: 4px 10px; }
+  .intro-facts dt { font-size: .65rem; }
+  .panel-grid { gap: 12px; }
+  .event-panel { padding: 14px; border-radius: 16px; }
+  .panel-top { font-size: .65rem; }
+  .panel-arrow { width: 20px; height: 20px; font-size: .8rem; }
+  .panel-icon { width: 34px; height: 34px; border-radius: 10px; }
+  .panel-icon svg { width: 23px; height: 23px; }
+  .panel-eyebrow { font-size: .6rem; margin-bottom: 3px; }
+  .panel-title { font-size: clamp(.85rem, 3.8vw, 1.1rem); line-height: 1.45; }
+  .additional-info { margin-top: 44px; }
+  .info-disclosure > summary { min-height: 78px; padding: 18px 16px; gap: 12px; }
+  .info-title { font-size: .9rem; }
+  .info-lead { display: none; }
+  .info-number { flex-basis: 30px; height: 30px; font-size: .65rem; }
+  .info-body, .nested-body { padding: 18px; }
+  .facts:not(.intro-facts) { grid-template-columns: 1fr; padding: 16px; gap: 4px; }
+  .facts:not(.intro-facts) dd { margin-bottom: 10px; }
+  .nested-disclosure > summary { flex-wrap: wrap; gap: 6px; padding: 14px; font-size: .85rem; }
+  .news-items .news-date { flex-basis: 100%; }
+  .quick-menu { right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); gap: 10px; }
+  .quick-button { width: 62px; height: 62px; }
+  .quick-button svg { width: 22px; height: 22px; }
+  .detail-modal { width: 100%; max-height: 88dvh; margin: auto 0 0; border-radius: 22px 22px 0 0; border-left: 0; border-right: 0; border-bottom: 0; }
+  .modal-header { padding: 22px 20px 18px; gap: 12px; }
+  .modal-header h2 { font-size: 1.2rem; }
+  .modal-close { min-width: 70px; padding: 8px; }
+  .modal-body { padding: 22px 20px max(28px, env(safe-area-inset-bottom)); }
+  .sns-link { padding: 16px; gap: 12px; }
+  .site-footer { display: none; }
+}
+@media (max-width: 359px) { main.festival-page { padding-inline: 14px; } .panel-grid { gap: 10px; } .event-panel { padding: 12px; } .panel-icon { width: 28px; height: 28px; } .panel-title { font-size: .85rem; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
