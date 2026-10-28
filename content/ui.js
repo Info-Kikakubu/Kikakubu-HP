@@ -12,7 +12,7 @@ window.festivalContent.ui = {
   // source は既存データとの対応。独自項目は body / notes を記入して追加できます。
   // 複数の折りたたみ項目を同時に開けます。
   additionalInfo: [
-    { number: "01", source: "news", title: "お知らせ / CHANGELOG", lead: "最新の更新情報を確認する", notes: [] },
+    { number: "01", source: "news", title: "お知らせ / NEWS", lead: "最新の更新情報を確認する", notes: [] },
     { number: "02", source: "notices", title: "注意事項 / RULES", lead: "ご来場前にご確認ください", notes: [] },
     { number: "03", source: "about", title: "団体紹介 / ABOUT", lead: "デーサイ企画部について", notes: [] },
     { number: "04", source: "links", title: "SNSリンク / CONNECT", lead: "各種SNSで最新情報を確認する", notes: [] }
