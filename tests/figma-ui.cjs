@@ -58,6 +58,39 @@ const normalize = value => value.replace(/\s+/g, " ").trim();
         else { await page.locator(".modal-body img").evaluate(i => i.decode()); assert.ok((await page.locator(".modal-body").textContent()).includes(raw.access.description)); }
         await page.keyboard.press("Escape"); await page.waitForFunction(() => !document.querySelector("dialog").open);
       }
+      const credit = page.getByRole("button", { name: "© デー祭2026", exact: true });
+      await credit.click();
+      assert.equal(await page.locator(".secret-message").textContent(), "こんな細部まで見てくれてありがとう！！");
+      assert.equal(await page.locator(".secret-from").textContent(), "Thanks from");
+      assert.equal(await page.locator(".secret-names").textContent(), "Yoshiki, Akihiro, Yoshitaka, Ryoma");
+      const signature = await page.locator(".secret-thanks").evaluate(node => {
+        const from = node.querySelector(".secret-from").getBoundingClientRect();
+        const names = node.querySelector(".secret-names");
+        const range = document.createRange(); range.selectNodeContents(names);
+        return { fromBottom: from.bottom, namesTop: names.getBoundingClientRect().top,
+          nameLines: range.getClientRects().length, overflow: node.scrollWidth > node.clientWidth };
+      });
+      assert.ok(signature.namesTop >= signature.fromBottom - 1);
+      assert.equal(signature.nameLines, 1); assert.equal(signature.overflow, false);
+      assert.equal(await page.locator("body").evaluate(e => getComputedStyle(e).overflow), "hidden");
+      await page.screenshot({ path: path.join(screenshots, "secret-" + width + ".png") });
+      await page.locator(".secret-dismiss").click();
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
+      assert.equal(await credit.evaluate(e => e === document.activeElement), true);
+      await page.keyboard.press("Enter");
+      assert.equal(await page.locator("dialog").evaluate(e => e.open), true);
+      await page.keyboard.press("Escape");
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
+      await page.keyboard.press("Space");
+      await page.mouse.click(2, 2);
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
+      await credit.click(); await page.locator(".modal-close").click();
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
+      await page.locator("#quick-sns").click();
+      assert.equal(await page.locator("dialog").evaluate(e => e.classList.contains("secret-modal")), false);
+      assert.equal(await page.locator("dialog").getAttribute("aria-labelledby"), "modal-title");
+      await page.keyboard.press("Escape");
+      await page.waitForFunction(() => !document.querySelector("dialog").open);
       await page.goto(target); await page.screenshot({ path: path.join(screenshots, "home-" + width + ".png"), fullPage: true });
       console.log("PASS " + width + "px: Figma layout, all content, images, dialogs, focus, sorting and disclosures");
     }

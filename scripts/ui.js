@@ -310,7 +310,12 @@
     details.append(summary, body); additional.append(details);
     animateInfoDisclosure(details, summary, body);
   });
-  const footer = el("footer", "© " + (title.pageTitle || title.heading), "site-footer");
+  const footer = el("footer", "", "site-footer");
+  const credit = el("button", "© " + (title.pageTitle || title.heading), "credit-trigger");
+  credit.type = "button";
+  credit.setAttribute("aria-haspopup", "dialog");
+  credit.setAttribute("aria-controls", "detail-modal");
+  footer.append(credit);
   root.replaceChildren(
     ...(announcement ? [announcement] : []),
     ...(header.childElementCount ? [header] : []),
@@ -331,6 +336,12 @@
   let opener = null;
   function openModal(panel, body, trigger) {
     opener = trigger || document.activeElement;
+    dialog.classList.toggle("secret-modal", !!panel.secret);
+    dialog.setAttribute("aria-labelledby", panel.secret ? "secret-message" : "modal-title");
+    if (panel.secret) dialog.setAttribute("aria-describedby", "secret-thanks");
+    else dialog.removeAttribute("aria-describedby");
+    close.textContent = panel.secret ? "×" : "閉じる ×";
+    close.setAttribute("aria-label", "閉じる");
     eyebrow.textContent = panel.eyebrow || ""; modalTitle.textContent = panel.title || "";
     dialog.style.setProperty("--panel-accent", accents.test(panel.accent) ? panel.accent : "#43b991");
     modalBody.replaceChildren(body);
@@ -345,6 +356,26 @@
   dialog.addEventListener("close", () => {
     document.body.classList.remove("modal-open");
     if (opener?.isConnected) opener.focus({ preventScroll: true });
+  });
+  // フッターの見た目はそのままに、クレジットから感謝のメッセージを開きます。
+  credit.addEventListener("click", () => {
+    const body = el("div", "", "secret-content");
+    const decorations = el("div", "", "secret-confetti");
+    decorations.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < 8; index++) decorations.append(el("span"));
+    const clover = el("div", "", "secret-clover");
+    clover.setAttribute("aria-hidden", "true");
+    for (let index = 0; index < 4; index++) clover.append(el("span"));
+    const message = el("h2", "", "secret-message"); message.id = "secret-message";
+    const messageBreak = ui.secret.message.indexOf("見て");
+    if (messageBreak > 0) message.append(el("span", ui.secret.message.slice(0, messageBreak)), el("span", ui.secret.message.slice(messageBreak)));
+    else message.textContent = ui.secret.message;
+    const thanks = el("p", "", "secret-thanks"); thanks.id = "secret-thanks";
+    thanks.append(el("span", ui.secret.signature, "secret-from"), el("span", ui.secret.names, "secret-names"));
+    const dismiss = el("button", "閉じる", "secret-dismiss"); dismiss.type = "button";
+    dismiss.addEventListener("click", () => dialog.close());
+    body.append(decorations, clover, message, thanks, dismiss);
+    openModal({ secret: true, eyebrow: ">_ SECRET FOUND", accent: "#20b987" }, body, credit);
   });
   (ui.panels || []).forEach((panel, index) => {
     const project = projects[panel.project] || {};

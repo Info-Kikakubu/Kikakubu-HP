@@ -170,6 +170,8 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
 .note-tags { margin: 0; padding: 0; display: flex; gap: 8px; flex-wrap: wrap; list-style: none; }
 .note-tags li { padding: 6px 12px; background: var(--mint); color: var(--link); border-radius: 6px; font-size: .8rem; }
 .site-footer { margin-top: 48px; text-align: center; font-size: .82rem; color: var(--muted); }
+.credit-trigger { min-height: 44px; padding: 8px 12px; border: 0; border-radius: 6px; font: inherit; color: inherit; background: transparent; cursor: pointer; }
+.credit-trigger:hover { color: var(--link); }
 .quick-menu { position: fixed; right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); z-index: 5; display: flex; gap: 12px; }
 .quick-button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; width: 84px; height: 84px; border: 4px solid var(--ink); border-radius: 50%; background: var(--mint); color: var(--ink); box-shadow: 0 7px 20px #102f2a38; cursor: pointer; transition: transform .2s, background-color .2s, box-shadow .2s; }
 .quick-button svg { width: 28px; height: 28px; }
@@ -264,9 +266,46 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
   .modal-close { min-width: 70px; padding: 8px; }
   .modal-body { padding: 22px 20px max(28px, env(safe-area-inset-bottom)); }
   .sns-link { padding: 16px; gap: 12px; }
-  .site-footer { display: none; }
+  .site-footer { padding-bottom: 86px; text-align: left; font-size: .72rem; }
+  .credit-trigger { padding-inline: 0; }
 }
 @media (max-width: 359px) { main.festival-page { padding-inline: 14px; } .announcement-list { gap: 8px; font-size: .76rem; } .main-content > h2, .additional-info > h2 { font-size: 1.2rem; } .panel-grid { gap: 10px; } .event-panel { padding: 12px; } .panel-thumbnail { width: calc(100% + 24px); margin-inline: -12px; } .panel-icon { width: 28px; height: 28px; } .panel-title { font-size: .85rem; } }
+/* Canvaのシークレット案を、画像ではなく文字と装飾で再現します。 */
+.secret-modal { width: min(650px, calc(100% - 32px)); border: 1px solid #cbe7db; border-radius: 22px; box-shadow: 0 24px 100px #102f2a40; }
+.secret-modal .modal-header { position: relative; z-index: 1; align-items: center; padding: 20px 24px 0; border: 0; }
+.secret-modal .modal-header h2 { display: none; }
+.secret-modal .modal-eyebrow { margin: 0; font-size: .7rem; letter-spacing: .09em; }
+.secret-modal .modal-close { min-width: 44px; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; font-size: 1.5rem; }
+.secret-modal .modal-close:hover { background: var(--mint); }
+.secret-modal .modal-body { padding: 8px clamp(20px, 5vw, 48px) 40px; }
+.secret-content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0; text-align: center; isolation: isolate; }
+.secret-clover { position: relative; display: grid; grid-template-columns: repeat(2, 19px); gap: 3px; margin: 12px 0 38px; rotate: -8deg; }
+.secret-clover span { width: 19px; height: 19px; border: 3px solid #08785b; background: #68d5ad; border-radius: 3px; box-shadow: 3px 3px 0 #20b98722; }
+.secret-clover::after { content: ""; position: absolute; top: 37px; left: 20px; width: 4px; height: 15px; background: #08785b; transform: rotate(-18deg); }
+.secret-message { max-width: 18em; margin: 0; color: var(--ink); font-size: clamp(1.05rem, 4.7vw, 1.8rem); font-weight: 800; line-height: 1.65; text-align: center; text-wrap: balance; }
+.secret-message > span { display: block; }
+.secret-thanks { width: 100%; margin: 28px 0 32px; color: #34685a; font-family: var(--code-font); line-height: 1.9; container-type: inline-size; }
+.secret-from, .secret-names { display: block; }
+.secret-from { font-size: .88rem; }
+.secret-names { font-size: min(.95rem, 4.8cqi); white-space: nowrap; }
+.secret-dismiss { min-width: 140px; min-height: 44px; padding: 10px 28px; border: 1px solid #b9dfcd; border-radius: 10px; background: var(--mint); color: var(--link); font-weight: 600; }
+.secret-dismiss:hover { background: #d9f5e9; }
+.secret-confetti { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.secret-confetti span { position: absolute; width: 7px; height: 7px; background: #82daba; rotate: 25deg; opacity: .6; }
+.secret-confetti span:nth-child(1) { top: 14%; left: 10%; }
+.secret-confetti span:nth-child(2) { top: 4%; right: 16%; width: 5px; height: 12px; rotate: -25deg; }
+.secret-confetti span:nth-child(3) { top: 38%; left: 1%; width: 4px; height: 10px; }
+.secret-confetti span:nth-child(4) { top: 43%; right: 0; border-radius: 50%; }
+.secret-confetti span:nth-child(5) { bottom: 20%; left: 9%; width: 5px; height: 5px; background: #b3dfc0; }
+.secret-confetti span:nth-child(6) { bottom: 9%; right: 10%; width: 5px; height: 11px; rotate: -35deg; }
+.secret-confetti span:nth-child(7) { top: 8%; left: 31%; width: 4px; height: 4px; }
+.secret-confetti span:nth-child(8) { bottom: 35%; right: 7%; width: 4px; height: 4px; }
+@media (max-width: 480px) {
+  .secret-modal .modal-header { padding: 12px 16px 0; }
+  .secret-modal .modal-body { padding-bottom: 28px; }
+  .secret-clover { margin-top: 6px; margin-bottom: 32px; }
+  .secret-thanks { margin-block: 22px 28px; }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }

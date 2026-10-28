@@ -18,5 +18,10 @@ window.festivalContent.ui = {
     { number: "04", source: "links", title: "SNSリンク / CONNECT", lead: "各種SNSで最新情報を確認する", notes: [] }
   ],
   snsPanel: { eyebrow: "SNS", title: "各種SNSへのリンク", source: "links", accent: "#43b991" },
-  mapPanel: { eyebrow: "ACCESS", title: "アクセスマップ", source: "access", accent: "#43b991" }
+  mapPanel: { eyebrow: "ACCESS", title: "アクセスマップ", source: "access", accent: "#43b991" },
+  secret: {
+    message: "こんな細部まで見てくれてありがとう！！",
+    signature: "Thanks from",
+    names: "Yoshiki, Akihiro, Yoshitaka, Ryoma"
+  }
 };
