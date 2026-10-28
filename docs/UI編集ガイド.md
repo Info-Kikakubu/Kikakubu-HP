@@ -1,5 +1,7 @@
 # UI刷新後の編集・検証
 
+> 2026-10-28にFigma版のレイアウトを反映しました。現在の画面・変更点・テスト方法は [Figmaレイアウト反映](Figmaレイアウト反映.md) を優先してください。以下には旧UIの説明も残っています。
+
 公開URLは従来どおり https://info-kikakubu.github.io/Kikakubu-HP/ です。
 GitHub Pages は引き続き main / リポジトリ直下を公開します。
 

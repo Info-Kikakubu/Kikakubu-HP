@@ -3,6 +3,6 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test:ui": "node tests/ui.cjs"
+    "test:ui": "node tests/figma-ui.cjs"
   }
 }

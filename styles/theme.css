@@ -1,22 +1,25 @@
-/* C案：白を基調に、エメラルドの線・ドット・円弧を添えます。 */
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@400;500;600;700;800&display=swap");
+
+/* 白とエメラルドを基調に、コードエディタのグリッドとシアンを添えます。 */
 :root {
-  --ink: #183c34;
-  --muted: #536b62;
-  --emerald: #43b991;
-  --link: #17674f;
-  --mint: #eff9f5;
-  --line: #dcebe5;
-  --soft-shadow: 0 3px 14px #183c3408;
+  --ink: #102f2a;
+  --muted: #506a64;
+  --emerald: #20b987;
+  --link: #08785b;
+  --mint: #ecfaf5;
+  --line: #d4e9e2;
+  --soft-shadow: 0 4px 18px #102f2a0a;
+  --code-font: "M PLUS 1 Code", ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 body {
   color: var(--ink);
+  font-family: var(--code-font);
   background-color: #fff;
   background-image:
-    radial-gradient(circle at calc(50% + 650px) 340px, transparent 0 170px, #effaf6 171px 208px, transparent 209px),
-    radial-gradient(circle at calc(50% - 640px) 1100px, transparent 0 90px, #e9f8f2 91px 119px, transparent 120px);
-  background-size: 100% 1800px;
-  background-repeat: repeat-y;
+    linear-gradient(#20b9870a 1px, transparent 1px),
+    linear-gradient(90deg, #20b9870a 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 main { position: relative; isolation: isolate; }
@@ -28,7 +31,10 @@ main::before, main::after {
   width: 64px;
   height: 88px;
   pointer-events: none;
-  background: radial-gradient(circle, #c9eee1 2px, transparent 2.5px) 0 0 / 18px 18px;
+  background:
+    linear-gradient(90deg, var(--emerald) 50%, transparent 50%) 0 0 / 16px 2px,
+    linear-gradient(var(--emerald) 50%, transparent 50%) 0 0 / 2px 16px;
+  opacity: .25;
 }
 main::before { top: 400px; left: max(12px, calc(50% - 540px)); }
 main::after { top: 1900px; right: max(12px, calc(50% - 540px)); }

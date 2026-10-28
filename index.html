@@ -16,21 +16,33 @@
     }
   </script>
   <link rel="stylesheet" href="./styles/main.css?v=oct20d">
-  <link rel="stylesheet" href="./styles/theme.css?v=emerald-c1">
-  <link rel="stylesheet" href="./styles/ui.css?v=oct26d">
-  <script defer src="./content/title.js?v=sep17c"></script>
+  <link rel="stylesheet" href="./styles/theme.css?v=figma-oct28a">
+  <link rel="stylesheet" href="./styles/ui.css?v=figma-oct28a">
+  <script defer src="./content/title.js?v=figma-oct28a"></script>
   <script defer src="./content/access.js?v=sep17c"></script>
   <script defer src="./content/links.js?v=oct13a"></script>
   <script defer src="./content/news.js?v=oct20b"></script>
   <script defer src="./content/projects.js?v=oct26a"></script>
   <script defer src="./content/notices.js?v=oct20b"></script>
   <script defer src="./content/about.js?v=sep18b"></script>
-  <script defer src="./content/slideshow.js?v=oct26c"></script>
-  <script defer src="./content/ui.js?v=oct26c"></script>
-  <script defer src="./scripts/slideshow.js?v=oct26a"></script>
-  <script defer src="./scripts/ui.js?v=oct26d"></script>
+  <script defer src="./content/ui.js?v=figma-oct28a"></script>
+  <script defer src="./scripts/ui.js?v=figma-oct28a"></script>
+  <noscript><style>.boot-screen { display: none; } body.booting { overflow: auto; }</style></noscript>
 </head>
-<body>
+<body class="booting">
+  <div id="boot-screen" class="boot-screen" role="status" aria-label="サイトを読み込んでいます">
+    <div class="boot-terminal">
+      <p class="boot-heading">DESAI_2026 / SYSTEM BOOT</p>
+      <div class="boot-log" aria-hidden="true">
+        <p class="boot-line">$ ./launch festival-site</p>
+        <p class="boot-line">[ OK ] loading event modules...</p>
+        <p class="boot-line">[ OK ] connecting content data...</p>
+        <p class="boot-line">[ OK ] rendering interface...</p>
+        <p class="boot-line boot-line-complete">[ DONE ] system ready.</p>
+      </div>
+      <span class="boot-progress" aria-hidden="true"><span></span></span>
+    </div>
+  </div>
   <a class="skip-link" href="#page">本文へ移動</a>
   <main id="page">
     <noscript>このページを表示するには、ブラウザーのJavaScriptを有効にしてください。</noscript>
