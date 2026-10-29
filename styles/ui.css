@@ -104,8 +104,8 @@ main.festival-page { padding-top: 0; }
 .main-content > h2, .additional-info > h2 { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; font-family: var(--code-font); font-size: 1.35rem; text-align: left; letter-spacing: .02em; }
 .main-content > h2::before, .additional-info > h2::before { content: ">_"; width: auto; height: auto; color: var(--emerald); background: transparent; font-size: 1.08em; font-weight: 800; }
 .main-content, .additional-info { padding: 30px; border: 1px solid #cfe8df; border-radius: 16px; background: linear-gradient(145deg, #f6fcf9, #edf8f4); box-shadow: 0 10px 32px #102f2a0b; }
-.panel-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 18px; }
-.event-panel-wide { grid-column: 1 / span 2; }
+.panel-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: auto; gap: 18px; }
+.event-panel-wide { grid-column: 1 / -1; }
 @media (min-width: 900px) { .event-panel:not(.event-panel-wide) { grid-row: 2; } }
 .event-panel { position: relative; aspect-ratio: 1; width: 100%; min-width: 0; display: grid; grid-template-rows: auto 1fr auto; padding: 22px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(135deg, #fff 0 82%, #effaf6 100%); box-shadow: 0 4px 20px #183c3406; text-align: left; cursor: pointer; transition: transform .2s, box-shadow .2s; }
 .event-panel::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--panel-accent); transform: scaleX(0); transform-origin: left; transition: transform .2s; }
@@ -120,6 +120,7 @@ main.festival-page { padding-top: 0; }
 .panel-icon { align-self: center; display: grid; place-items: center; width: 54px; height: 54px; background: var(--mint); color: var(--link); border-radius: 16px; }
 .panel-icon svg { width: 30px; height: 30px; }
 .panel-thumbnail { display: block; align-self: center; width: calc(100% + 44px); aspect-ratio: 16 / 9; margin: 10px -22px; }
+.event-panel-wide .panel-thumbnail { width: min(100%, 640px); margin-inline: auto; }
 .panel-thumbnail img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
 svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .panel-copy { display: block; }
