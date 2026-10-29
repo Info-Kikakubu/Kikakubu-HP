@@ -5,7 +5,7 @@ window.festivalContent.ui = {
   panels: [
     { id: "food", project: 1, title: "デー祭食堂", eyebrow: "FOOD / YAKISOBA", thumbnail: "./assets/yakisoba.jpg", thumbnailAlt: "デー祭食堂のソース焼きそば", icon: "food", accent: "#43b991", span: 2 },
     { id: "campus-quest", project: 0, title: "CampusQuest", eyebrow: "GAME / EXHIBIT", description: "あなたの興味から最適な履修登録をお作りします! 作った履修登録はプリントアウトして持ち帰りましょう", useOwnDescription: true, thumbnail: "./assets/slideshow/CampusQuestタイトル.png", thumbnailAlt: "Campus Quest タイトル画面", icon: "quest", accent: "#43b991", exhibit: 0 },
-    { id: "game-remake", project: 0, title: "クソゲー再現", eyebrow: "REMAKE / PLAY", description: "よくある詐欺広告ゲー\"風\"の世界観を本当にプレイしてみたい！そんなあなたの願いを叶える神ゲー、ここに爆誕！", thumbnail: "./assets/slideshow/verdant-relay.png", thumbnailAlt: "VERDANT RELAY ゲーム紹介画像", icon: "game", accent: "#43b991" },
+    { id: "game-remake", project: 0, useOwnDescription: true, title: "広告ゲー展示", eyebrow: "REMAKE / PLAY", description: "よくある詐欺広告ゲー\"風\"の世界観を本当にプレイしてみたい！そんなあなたの願いを叶える神ゲー、ここに爆誕！", thumbnail: "./assets/slideshow/verdant-relay.png", thumbnailAlt: "VERDANT RELAY ゲーム紹介画像", icon: "game", accent: "#43b991" },
     { id: "programming-game", project: 0, title: "プログラミング教養を兼ねたゲーム体験", eyebrow: "CODE / EXPERIENCE", thumbnail: "./assets/slideshow/学部エンブレム.png?v=figma-oct28a", thumbnailAlt: "情報・データサイエンス学部エンブレム", icon: "code", accent: "#43b991" },
     { id: "screening", project: 2, title: "対談動画上映", eyebrow: "TALK / SCREENING", thumbnail: "./assets/slideshow/対談動画サムネイル.png", thumbnailAlt: "AI時代 私たちは何を学ぶ？ 対談動画", icon: "screening", accent: "#43b991" }
   ],
