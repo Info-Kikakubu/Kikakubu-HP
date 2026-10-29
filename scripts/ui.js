@@ -123,6 +123,17 @@
       const image = el("img", "", "content-image"); image.src = url(item.image); image.alt = item.imageAlt || ""; body.append(image);
     }
     add(body, "p", item.description, "multiline");
+    if (item.videoLinks?.length) {
+      const videos = el("div", "", "video-links");
+      item.videoLinks.forEach(video => {
+        if (!url(video.url)) return;
+        const button = el("a", "", "video-link");
+        button.href = url(video.url);
+        button.append(icon("screening"), el("span", video.label), el("span", "→", "link-arrow"));
+        videos.append(button);
+      });
+      if (videos.childElementCount) body.append(videos);
+    }
     if (item.orderInstructions?.trim()) { add(body, "h4", "注文方法"); add(body, "p", item.orderInstructions, "multiline"); }
     if (includeExhibits && item.exhibits?.length) {
       add(body, "h4", "展示物一覧");

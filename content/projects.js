@@ -27,7 +27,12 @@ window.festivalContent.projects = {
     },
     {
       "title": "「AI時代 私たちは何を学ぶ？」 学生 × 教員 対談シリーズ動画の上映",
-      "description": "Coming Soon ...",
+      "description": "真面目な話です。",
+      "videoLinks": [
+        { "label": "対談動画1を観る", "url": "https://www.youtube.com/watch?v=NVfmRR-Rmas" },
+        { "label": "対談動画2を観る", "url": "https://www.youtube.com/watch?v=wMWeqosPjbw" },
+        { "label": "対談動画3を観る", "url": "https://www.youtube.com/watch?v=TD2S_idnAFM" }
+      ],
       "collapsible": true
     }
   ]
