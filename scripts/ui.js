@@ -444,10 +444,19 @@
   const foodPanel = (ui.panels || []).find(panel => panel.id === "food");
   const orderUrl = url(projects[foodPanel?.project]?.url);
   if (orderUrl) {
-    const order = el("a", "", "quick-button"); order.id = "quick-order";
-    order.href = orderUrl;
-    order.setAttribute("aria-label", "モバイルオーダーを開く");
+    const order = el("button", "", "quick-button"); order.id = "quick-order"; order.type = "button";
+    order.setAttribute("aria-label", "モバイルオーダーの案内を開く");
+    order.setAttribute("aria-haspopup", "dialog"); order.setAttribute("aria-controls", dialog.id);
     order.append(icon("order"), el("span", "モバイル\nオーダー"));
+    order.addEventListener("click", () => {
+      const body = el("div", "", "content-stack");
+      add(body, "p", "デー祭食堂のモバイルオーダーをご利用いただけます。");
+      add(body, "p", "下のボタンから注文サイト「まちベル」へ移動します。");
+      const proceed = el("a", "", "mobile-order-link"); proceed.href = orderUrl;
+      proceed.append(icon("order"), el("span", "注文サイトへ進む"), el("span", "→", "link-arrow"));
+      body.append(proceed);
+      openModal({ title: "モバイルオーダー", eyebrow: "MOBILE ORDER", accent: "#43b991" }, body, order);
+    });
     quick.append(order);
   }
   [["sns", ui.snsPanel, snsBody, "SNS", "SNSリンクを開く"], ["map", ui.mapPanel, mapBody, "アクセス", "地図・アクセスを開く"]].forEach(([name, panel, render, label, aria]) => {
