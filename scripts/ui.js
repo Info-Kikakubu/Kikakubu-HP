@@ -209,6 +209,7 @@
       const heading = el("h4", "", "notice-heading");
       const number = el("span", String(index + 1).padStart(2, "0"), "notice-number");
       number.setAttribute("aria-hidden", "true");
+      number.prepend(icon(item.icon || "notices"));
       heading.append(number, el("span", item.title));
       article.append(heading);
       if (item.body?.trim()) {
