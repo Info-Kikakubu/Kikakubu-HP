@@ -433,8 +433,9 @@
         body.append(thumbnail);
       }
       add(body, "p", panel.description, "multiline");
-      if (project.title && project.title !== panel.title) add(body, "h3", project.title);
-      body.append(projectBody(project));
+      if (!panel.useOwnDescription && project.title && project.title !== panel.title) add(body, "h3", project.title);
+      const detailProject = panel.useOwnDescription ? { ...project, description: "", exhibits: [] } : project;
+      body.append(projectBody(detailProject));
       openModal({ ...panel, title: panel.title || project.title }, body, button);
     });
     grid.append(button);
