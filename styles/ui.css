@@ -316,3 +316,17 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* デー祭食堂のモバイルオーダーを大きなボタンとして案内します。 */
+.mobile-order-link {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  width: 100%; box-sizing: border-box; min-height: 64px; padding: 16px 18px;
+  border: 2px solid #087558; border-radius: 12px; background: #087558;
+  color: #fff; font-weight: 750; line-height: 1.5; text-decoration: none;
+  box-shadow: 0 5px 14px #08755826;
+}
+.mobile-order-link svg { width: 28px; height: 28px; flex: 0 0 28px; stroke-width: 1.8; }
+.mobile-order-link > span:not(.link-arrow) { min-width: 0; overflow-wrap: anywhere; }
+.mobile-order-link .link-arrow { flex: 0 0 auto; color: inherit; font-size: 1.3em; }
+.mobile-order-link:hover { background: #055c45; border-color: #055c45; color: #fff; }
+.mobile-order-link:focus-visible { outline: 3px solid #087558; outline-offset: 5px; }
