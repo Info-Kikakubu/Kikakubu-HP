@@ -196,7 +196,32 @@
   }
   function noticesBody() {
     const body = el("div", "", "content-stack"); add(body, "h3", data.notices?.heading);
-    (data.notices?.items || []).forEach(item => { const article = el("article", "", "content-stack"); add(article, "h4", item.title); add(article, "p", item.body, "multiline"); link(article, item.url, item.linkLabel); body.append(article); });
+    const list = el("div", "", "notice-list");
+    (data.notices?.items || []).forEach((item, index) => {
+      const article = el("article", "", "notice-card");
+      const heading = el("h4", "", "notice-heading");
+      const number = el("span", String(index + 1).padStart(2, "0"), "notice-number");
+      number.setAttribute("aria-hidden", "true");
+      heading.append(number, el("span", item.title));
+      article.append(heading);
+      if (item.body?.trim()) {
+        const paragraph = el("p", "", "multiline");
+        const terms = (item.emphasis || []).filter(term => typeof term === "string" && term.length);
+        let rest = item.body;
+        while (rest) {
+          const matches = terms.map(term => ({ term, at: rest.indexOf(term) })).filter(match => match.at >= 0);
+          matches.sort((a, b) => a.at - b.at || b.term.length - a.term.length);
+          if (!matches.length) { paragraph.append(document.createTextNode(rest)); break; }
+          const { term, at } = matches[0];
+          paragraph.append(document.createTextNode(rest.slice(0, at)), el("strong", term));
+          rest = rest.slice(at + term.length);
+        }
+        article.append(paragraph);
+      }
+      link(article, item.url, item.linkLabel);
+      list.append(article);
+    });
+    body.append(list);
     return body;
   }
   function aboutBody() {
