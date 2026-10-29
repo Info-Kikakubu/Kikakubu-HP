@@ -8,6 +8,7 @@
   const projects = data.projects?.items || [];
   const accents = /^#[0-9a-f]{6}$/i;
   const paths = {
+    mobile: "M7 2h10a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1ZM10 5h4M11 19h2M9 10l2 2 4-4",
     food: "M4 11h16l-2 9H6l-2-9ZM3 11h18M8 3v5m4-5v5m4-5v5",
     quest: "M8 3h8v6l-4 3-4-3V3ZM12 12v9M6 17h12",
     game: "M7 7h10l4 9a3 3 0 0 1-5 3l-2-2h-4l-2 2a3 3 0 0 1-5-3L7 7ZM7 11v5M4.5 13.5h5M16 12h.01M18 15h.01",
@@ -128,7 +129,12 @@
     }
     const detail = facts(item, [["date", "開催日"], ["time", "開催時間"], ["location", "場所"], ["price", "料金・価格"], ["participation", "参加方法"], ["payment", "支払方法"]]);
     if (detail.childElementCount) body.append(detail);
-    link(body, item.url, item.linkLabel);
+    if (item.url === "https://machibell-food-court.gakusai-foodcourt.workers.dev/") {
+      const orderLink = el("a", "", "mobile-order-link");
+      orderLink.href = url(item.url);
+      orderLink.append(icon("mobile"), el("span", item.linkLabel || "モバイルオーダーはこちら"), el("span", "→", "link-arrow"));
+      body.append(orderLink);
+    } else link(body, item.url, item.linkLabel);
     if (item.notes?.trim()) { add(body, "h4", "注意事項"); add(body, "p", item.notes, "multiline"); }
     return body;
   }
