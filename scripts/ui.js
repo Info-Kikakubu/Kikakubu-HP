@@ -21,7 +21,8 @@
     notices: "M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01",
     about: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm13 10v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
     sns: "M18 6 6 12l12 6M21 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM9 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm12 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
-    map: "M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Zm-5 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+    map: "M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Zm-5 0a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z",
+    order: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm-2 16h14M10 5h4M8 8h2l1 6h5l1-4h-7M12 16h.01M16 16h.01"
   };
   function el(tag, text, className) {
     const node = document.createElement(tag);
@@ -437,7 +438,17 @@
     });
     grid.append(button);
   });
-  const quick = el("nav", "", "quick-menu"); quick.setAttribute("aria-label", "SNS・アクセス");
+  const quick = el("nav", "", "quick-menu"); quick.setAttribute("aria-label", "モバイルオーダー・SNS・アクセス");
+  // 食堂の詳細と同じ注文先を使います。
+  const foodPanel = (ui.panels || []).find(panel => panel.id === "food");
+  const orderUrl = url(projects[foodPanel?.project]?.url);
+  if (orderUrl) {
+    const order = el("a", "", "quick-button"); order.id = "quick-order";
+    order.href = orderUrl;
+    order.setAttribute("aria-label", "モバイルオーダーを開く");
+    order.append(icon("order"), el("span", "モバイル\nオーダー"));
+    quick.append(order);
+  }
   [["sns", ui.snsPanel, snsBody, "SNS", "SNSリンクを開く"], ["map", ui.mapPanel, mapBody, "アクセス", "地図・アクセスを開く"]].forEach(([name, panel, render, label, aria]) => {
     const button = el("button", "", "quick-button"); button.type = "button"; button.id = "quick-" + name;
     button.setAttribute("aria-label", aria); button.setAttribute("aria-haspopup", "dialog"); button.setAttribute("aria-controls", dialog.id);
