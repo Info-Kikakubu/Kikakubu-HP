@@ -21,6 +21,7 @@ window.festivalContent.projects = {
       "notes": "※本製品は以下のアレルギー項目を含みます\n    ＞＞小麦・豚肉・大豆\n※お支払い方法は現金のみです\n※お召し上がりは『デー祭展示会』ブース内に設営する食事可能エリアでも可能です。",
       "location": "工学・情報学系講義棟前屋台",
       "price": "1食 500円",
+      "snsFollowPrice": "→ 450円(SNSフォロー時)",
       "payment": "現金のみ",
       "url": "https://machibell-food-court.gakusai-foodcourt.workers.dev/",
       "linkLabel": "モバイルオーダーはこちら"

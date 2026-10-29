@@ -58,7 +58,21 @@
   function facts(item, keys) {
     const dl = el("dl", "", "facts");
     keys.forEach(([key, label]) => {
-      if (item[key]?.trim()) dl.append(el("dt", label), el("dd", item[key]));
+      if (!item[key]?.trim()) return;
+      const value = el("dd", item[key]);
+      if (key === "price" && item.snsFollowPrice?.trim()) {
+        value.classList.add("price-with-discount");
+        const follow = el("button", item.snsFollowPrice, "sns-follow-price");
+        follow.type = "button";
+        follow.setAttribute("aria-haspopup", "dialog");
+        follow.setAttribute("aria-controls", "detail-modal");
+        follow.addEventListener("click", () => {
+          const returnTarget = opener?.isConnected ? opener : document.getElementById("quick-sns");
+          openModal(ui.snsPanel || {}, snsBody(), returnTarget);
+        });
+        value.append(follow);
+      }
+      dl.append(el("dt", label), value);
     });
     return dl;
   }
