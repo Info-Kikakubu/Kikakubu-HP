@@ -9,7 +9,7 @@ window.festivalContent.title = {
   "venue": "",
   "announcementDate": "10/30 ~ 11/1",
   "announcementTime": "9:00 ~ 17:00",
-  "announcementNote": "11/1は13:00まで",
+  "announcementNote": "10/30は10:00から\n11/1は13:00まで",
   "announcementCatchcopy": "第64回千葉大祭へようこそ！",
   "introduction": "",
   "logo": "./assets/logo.png",

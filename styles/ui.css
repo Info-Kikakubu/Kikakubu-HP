@@ -86,7 +86,7 @@ main.festival-page { display: block; max-width: 1180px; margin: auto; padding: 7
 .announcement-row { margin: 0; display: flex; align-items: baseline; white-space: nowrap; }
 .announcement-key { color: #9fe3c3; font-weight: 600; }
 .announcement-value { color: #d9ff92; font-weight: 800; }
-.announcement-note { margin-left: .8em; color: #b8d9c9; font-size: .72em; }
+.announcement-note { margin-left: .8em; color: #b8d9c9; font-size: .72em; white-space: pre-line; }
 html { scroll-padding-top: 100px; }
 main.festival-page { padding-top: 0; }
 .intro-copy { max-width: 700px; margin: 20px auto 24px; padding: 16px 20px; border-left: 3px solid var(--emerald); color: var(--muted); background: #f7fcfa; font-family: var(--code-font); font-size: .94rem; text-align: left; }
@@ -241,7 +241,7 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
   .event-thumbnail-catchcopy { margin-bottom: 14px; font-size: clamp(1.05rem, 5.5vw, 1.35rem); text-align: center; }
   .announcement-list { display: grid; grid-template-columns: 1fr 1.2fr; justify-content: stretch; gap: 12px; font-size: clamp(.82rem, 3.7vw, .95rem); text-align: center; }
   .announcement-row { display: grid; grid-template-columns: 1fr; align-content: start; justify-items: center; }
-  .announcement-key, .announcement-value, .announcement-note { white-space: nowrap; }
+  .announcement-key, .announcement-value { white-space: nowrap; }
   .announcement-note { grid-column: 1; margin: -1px 0 0; }
   .intro-copy { margin: 16px auto 20px; font-size: .85rem; }
   .event-overview { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
