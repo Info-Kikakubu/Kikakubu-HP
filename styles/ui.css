@@ -418,3 +418,7 @@ body { isolation: isolate; }
   white-space: normal; overflow-wrap: anywhere;
 }
 .modal-body > .content-stack > .temporary-closure-notice:first-child { margin-top: 0; }
+
+/* プログラミング体験の見出しを、カード幅に合わせて1行で表示します。 */
+#panel-programming-game .panel-copy { container-type: inline-size; }
+#panel-programming-game .panel-title { white-space: nowrap; font-family: "M PLUS 1 Code", system-ui, sans-serif; font-size: clamp(.5rem, 10cqw, 1.2rem); }

@@ -20,7 +20,7 @@ window.festivalContent.projects = {
       "collapsible": true,
       "notes": "※本製品は以下のアレルギー項目を含みます\n    ＞＞小麦・豚肉・大豆\n※お支払い方法は現金のみです\n※お召し上がりは『デー祭展示会』ブース内に設営する食事可能エリアでも可能です。",
       "location": "工学・情報学系講義棟前屋台",
-      "price": "1食 500円",
+      "price": "ハーフは250円、普通は500円です。3個以上お買い上げで100円引きになります。",
       // 再表示するときは snsFollowPriceEnabled を true に変更します。
       "snsFollowPriceEnabled": false,
       "snsFollowPrice": "→ 450円(SNSフォロー時)",
