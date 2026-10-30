@@ -82,11 +82,13 @@ main.festival-page { display: block; max-width: 1180px; margin: auto; padding: 7
   0%, 52% { opacity: 0; translate: 0 10px; }
   74%, 100% { opacity: 1; translate: 0 0; }
 }
-.announcement-list { display: flex; align-items: baseline; justify-content: center; gap: 8px 42px; font-family: var(--code-font); font-size: clamp(1.05rem, 2vw, 1.3rem); letter-spacing: .03em; line-height: 1.6; text-shadow: 0 0 8px #d9ff9280; }
-.announcement-row { margin: 0; display: flex; align-items: baseline; white-space: nowrap; }
+.announcement-list { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 8px 42px; font-family: var(--code-font); font-size: clamp(1.05rem, 2vw, 1.3rem); letter-spacing: .03em; line-height: 1.6; text-shadow: 0 0 8px #d9ff9280; }
+.announcement-row { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; max-width: 100%; gap: 0 6px; white-space: normal; }
+.announcement-key, .announcement-value { white-space: nowrap; }
 .announcement-key { color: #9fe3c3; font-weight: 600; }
 .announcement-value { color: #d9ff92; font-weight: 800; }
-.announcement-note { margin-left: .8em; color: #b8d9c9; font-size: .72em; white-space: pre-line; }
+.announcement-note { flex: 0 0 100%; width: 100%; margin: 6px 0 0; display: grid; justify-items: center; gap: 4px; color: #b8d9c9; font-size: clamp(.75rem, 1.2vw, .9rem); line-height: 1.7; letter-spacing: 0; white-space: normal; text-shadow: none; }
+.announcement-note-line { display: block; white-space: nowrap; }
 html { scroll-padding-top: 100px; }
 main.festival-page { padding-top: 0; }
 .intro-copy { max-width: 700px; margin: 20px auto 24px; padding: 16px 20px; border-left: 3px solid var(--emerald); color: var(--muted); background: #f7fcfa; font-family: var(--code-font); font-size: .94rem; text-align: left; }
@@ -242,7 +244,7 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
   .announcement-list { display: grid; grid-template-columns: 1fr 1.2fr; justify-content: stretch; gap: 12px; font-size: clamp(.82rem, 3.7vw, .95rem); text-align: center; }
   .announcement-row { display: grid; grid-template-columns: 1fr; align-content: start; justify-items: center; }
   .announcement-key, .announcement-value { white-space: nowrap; }
-  .announcement-note { grid-column: 1; margin: -1px 0 0; }
+  .announcement-note { grid-column: 1 / -1; margin: 4px 0 0; }
   .intro-copy { margin: 16px auto 20px; font-size: .85rem; }
   .event-overview { grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
   .event-fact { min-height: 92px; padding: 16px 18px; border-radius: 14px; }

@@ -127,8 +127,15 @@
     dateRow.append(el("span", "// 開催日：", "announcement-key"), el("strong", title.announcementDate, "announcement-value"));
     const timeRow = el("p", "", "announcement-row");
     timeRow.append(el("span", "// 開催時間：", "announcement-key"), el("strong", title.announcementTime, "announcement-value"));
-    add(timeRow, "span", title.announcementNote, "announcement-note");
-    list.append(dateRow, timeRow); viewport.append(list); board.append(viewport, functionClose);
+    list.append(dateRow, timeRow);
+    if (title.announcementNote?.trim()) {
+      const note = el("p", "", "announcement-note");
+      title.announcementNote.split(/\r?\n/).filter(line => line.trim()).forEach(line => {
+        add(note, "span", line, "announcement-note-line");
+      });
+      list.append(note);
+    }
+    viewport.append(list); board.append(viewport, functionClose);
     return board;
   }
   function projectBody(item, includeExhibits = true) {
