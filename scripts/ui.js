@@ -439,6 +439,7 @@
     const project = projects[panel.project] || {};
     const button = el("button", "", "event-panel"); button.type = "button"; button.id = "panel-" + panel.id;
     if (panel.span === 2) button.classList.add("event-panel-wide");
+    if (panel.temporaryClosureNotice?.trim()) button.classList.add("is-temporarily-closed");
     button.setAttribute("aria-haspopup", "dialog"); button.setAttribute("aria-controls", dialog.id);
     button.style.setProperty("--panel-accent", accents.test(panel.accent) ? panel.accent : "#43b991");
     const top = el("span", "", "panel-top"); top.append(el("span", String(index + 1).padStart(2, "0"), "panel-number"));
@@ -448,9 +449,11 @@
       illustration.append(thumbnail);
     } else illustration.append(icon(panel.icon));
     const bottom = el("span", "", "panel-copy"); add(bottom, "span", panel.eyebrow, "panel-eyebrow"); bottom.append(el("span", panel.title || project.title, "panel-title"));
+    add(bottom, "span", panel.temporaryClosureNotice, "temporary-closure-notice");
     button.append(top, illustration, bottom);
     button.addEventListener("click", () => {
       const body = el("div", "", "content-stack");
+      add(body, "p", panel.temporaryClosureNotice, "temporary-closure-notice");
       if (url(panel.thumbnail)) {
         const thumbnail = el("img", "", "content-image modal-project-thumbnail");
         thumbnail.src = url(panel.thumbnail);

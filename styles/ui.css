@@ -400,3 +400,19 @@ body { isolation: isolate; }
 }
 .sns-follow-price:hover { color: #931626; }
 .sns-follow-price:focus-visible { outline: 3px solid #c62032; outline-offset: 3px; border-radius: 4px; }
+
+/* 食堂の臨時休止案内。解除時は content/ui.js の temporaryClosureNotice を外します。 */
+.event-panel.is-temporarily-closed {
+  border: 2px solid #c62828; background: linear-gradient(135deg, #fff3f3, #ffe0e0);
+  box-shadow: 0 4px 20px #c6282820;
+}
+.event-panel.is-temporarily-closed .panel-title,
+.event-panel.is-temporarily-closed .panel-eyebrow { color: #a51b1b; }
+.temporary-closure-notice {
+  display: block; margin-top: 14px; padding: 14px 18px;
+  border: 2px solid #a51b1b; border-radius: 10px;
+  background: #b91c1c; color: #fff; font-weight: 800;
+  font-size: clamp(1rem, 1.8vw, 1.3rem); line-height: 1.7;
+  white-space: normal; overflow-wrap: anywhere;
+}
+.modal-body > .content-stack > .temporary-closure-notice:first-child { margin-top: 0; }
