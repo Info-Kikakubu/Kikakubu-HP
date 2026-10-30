@@ -188,7 +188,7 @@ details[open] > summary > .expand-icon { transform: rotate(45deg); }
 .quick-button svg { width: 28px; height: 28px; }
 .quick-button span { font-size: .72rem; font-weight: 700; }
 .quick-button { text-decoration: none; flex-shrink: 0; }
-#quick-order { gap: 3px; }
+#quick-order { gap: 3px; border-radius: 0; }
 #quick-order span { font-size: .6rem; line-height: 1.2; text-align: center; white-space: pre-line; }
 .quick-menu { align-items: flex-end; }
 #quick-map { border-color: var(--ink); color: var(--ink); background: var(--mint); box-shadow: 0 7px 20px #102f2a38; }
