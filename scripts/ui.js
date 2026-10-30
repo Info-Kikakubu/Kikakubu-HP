@@ -60,7 +60,7 @@
     keys.forEach(([key, label]) => {
       if (!item[key]?.trim()) return;
       const value = el("dd", item[key]);
-      if (key === "price" && item.snsFollowPrice?.trim()) {
+      if (key === "price" && item.snsFollowPriceEnabled !== false && item.snsFollowPrice?.trim()) {
         value.classList.add("price-with-discount");
         const follow = el("button", item.snsFollowPrice, "sns-follow-price");
         follow.type = "button";
