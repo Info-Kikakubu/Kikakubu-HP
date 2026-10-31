@@ -1,9 +1,9 @@
-// 元の呼び出し画面を直接読み込み、店舗名と準備中・受取可能の件数だけを表示します。
+// まちベルの公開board APIと同期する文字表示。API側のCORS許可後に公開します。
 (() => {
   "use strict";
   const projects = document.getElementById("projects");
   if (!projects) return;
-  const displayUrl = "https://machibell-food-court.gakusai-foodcourt.workers.dev/display";
+  const origin = "https://machibell-food-court.gakusai-foodcourt.workers.dev";
   const shopId = "e9e92128-5842-4b2a-9ef8-cba6abf02a39";
   function node(tag, text, className) {
     const element = document.createElement(tag);
@@ -15,36 +15,56 @@
   section.setAttribute("aria-labelledby", "yakisoba-live-heading");
   const heading = node("h2", "焼きそば速報"); heading.id = "yakisoba-live-heading";
   const description = node("p", "待ち状況を確認できます！", "yakisoba-live-description");
-  const viewport = node("div", "", "yakisoba-live-viewport");
-  const stage = node("div", "", "yakisoba-live-stage");
-  const frame = node("iframe", "", "yakisoba-live-frame");
-  frame.src = displayUrl + "?shop=" + encodeURIComponent(shopId);
-  frame.title = "デー祭食堂の準備中・受け取り可能の件数（自動更新）";
-  frame.referrerPolicy = "no-referrer";
-  frame.tabIndex = -1;
-  // 周辺UIを含むiframeには直接入らず、リンクから元画面を操作できます。
-  frame.setAttribute("aria-hidden", "true");
-  const link = node("a", "呼び出し画面を開く →", "yakisoba-live-link");
-  link.href = displayUrl;
-  link.setAttribute("aria-label", "焼きそばの待ち状況を呼び出し画面で確認する");
-  stage.append(frame); viewport.append(stage);
-  section.append(heading, description, viewport, link);
-  projects.before(section);
-  // iframeの表示幅を固定することで、切り出す店舗枠の位置を安定させます。
-  function resize() {
-    const mobile = viewport.clientWidth <= 600;
-    const width = mobile ? 376 : 846;
-    // 件数見出しの下端まで表示し、番号一覧を含めません。
-    const height = mobile ? 115.4375 : 129.34375;
-    stage.style.width = `${width}px`;
-    stage.style.height = `${height}px`;
-    frame.style.width = mobile ? "400px" : "900px";
-    frame.style.left = mobile ? "-12px" : "-27px";
-    frame.style.top = mobile ? "-203.1875px" : "-206.9375px";
-    const scale = viewport.clientWidth / width;
-    stage.style.transform = `scale(${scale})`;
-    viewport.style.height = `${height * scale}px`;
+  const list = node("dl", "", "yakisoba-counts");
+  const outputs = [];
+  for (const label of ["準備中", "受け取り出来ます"]) {
+    const row = node("div", "", "yakisoba-count-row");
+    const value = node("strong", "—", "yakisoba-count-number");
+    const count = node("dd", "", "yakisoba-count-value");
+    count.append(value, node("span", "人", "yakisoba-count-unit"));
+    row.append(node("dt", label), count); list.append(row); outputs.push(value);
   }
-  new ResizeObserver(resize).observe(viewport);
-  resize();
+  const status = node("p", "待ち状況を取得しています…", "yakisoba-live-status");
+  status.setAttribute("role", "status");
+  const link = node("a", "呼び出し画面を開く →", "yakisoba-live-link"); link.href = origin + "/display";
+  section.append(heading, description, list, status, link); projects.before(section);
+  let timer, controller, stopped = false, lastSuccess = 0;
+  const formatTime = timestamp => new Intl.DateTimeFormat("ja-JP", {hour:"2-digit",minute:"2-digit",timeZone:"Asia/Tokyo"}).format(timestamp);
+  async function refresh() {
+    if (controller || stopped || document.hidden) return;
+    clearTimeout(timer);
+    controller = new AbortController();
+    const timeout = setTimeout(() => controller?.abort(), 10000);
+    try {
+      const response = await fetch(origin + "/api/board", {cache:"no-store",credentials:"omit",signal:controller.signal});
+      if (!response.ok) throw new Error("取得失敗");
+      const data = await response.json();
+      const shop = data.shops?.find(item => item.id === shopId);
+      if (!shop || !Array.isArray(shop.cooking)) throw new Error("店舗データがありません");
+      const pickup = shop.pickup ?? shop.tickets;
+      if (!Array.isArray(pickup) || (shop.calling !== undefined && !Array.isArray(shop.calling))) throw new Error("受け取り状況が不正です");
+      const ready = new Set([...(shop.calling ?? []), ...pickup]);
+      outputs[0].textContent = String(shop.cooking.length);
+      outputs[1].textContent = String(ready.size);
+      lastSuccess = Date.now();
+      status.textContent = `自動更新中・最終確認 ${formatTime(lastSuccess)}`;
+      section.classList.remove("is-stale");
+    } catch {
+      // 通信できないときに0人と誤表示しません。
+      outputs.forEach(output => { output.textContent = "—"; });
+      status.textContent = lastSuccess ? `更新できません（最終確認 ${formatTime(lastSuccess)}）。呼び出し画面をご確認ください。` : "待ち状況を取得できません。呼び出し画面をご確認ください。";
+      section.classList.add("is-stale");
+    } finally {
+      clearTimeout(timeout); controller = null;
+      if (!stopped && !document.hidden) timer = setTimeout(refresh, 2000);
+    }
+  }
+  document.addEventListener("visibilitychange", () => {
+    clearTimeout(timer);
+    if (!document.hidden) refresh();
+  });
+  window.addEventListener("online", refresh);
+  window.addEventListener("pagehide", () => { stopped = true; clearTimeout(timer); controller?.abort(); });
+  window.addEventListener("pageshow", () => { stopped = false; refresh(); });
+  refresh();
 })();

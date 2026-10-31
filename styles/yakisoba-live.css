@@ -1,13 +1,14 @@
 .yakisoba-live { margin: 0 0 42px; padding: clamp(18px, 3vw, 30px); border: 1px solid #cfe8df; border-radius: 16px; background: linear-gradient(145deg, #f6fcf9, #edf8f4); box-shadow: 0 10px 32px #102f2a0b; }
 .yakisoba-live > h2 { margin: 0 0 10px; font-size: clamp(1.2rem, 3vw, 1.8rem); text-align: left; }
 .yakisoba-live > h2::before { content: ">_ "; color: var(--emerald); }
-.yakisoba-live-description { margin: 0 0 20px; color: var(--ink); }
-.yakisoba-live-viewport { position: relative; width: 100%; overflow: hidden; border-radius: 14px; background: #fff; }
-.yakisoba-live-stage { position: absolute; inset: 0 auto auto 0; width: 846px; height: 129.34375px; overflow: hidden; transform-origin: 0 0; pointer-events: none; }
-.yakisoba-live-frame { position: absolute; left: -27px; top: -206.9375px; width: 900px; height: 800px; max-width: none; border: 0; pointer-events: none; }
-.yakisoba-live-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 14px; color: var(--link); font-weight: 700; text-underline-offset: 4px; }
-@media (max-width: 480px) {
-  .yakisoba-live { margin-bottom: 30px; padding: 16px 12px; }
-  .yakisoba-live-description { margin-bottom: 14px; font-size: .9rem; }
-  .yakisoba-live-link { font-size: .85rem; }
-}
+.yakisoba-live-description { margin: 0 0 20px; }
+.yakisoba-counts { display: grid; grid-template-columns: 1fr; width: 100%; margin: 0; gap: 12px; font-family: "Noto Sans JP", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; font-weight: 800; }
+.yakisoba-count-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 12px; padding: 18px 24px; border: 1px solid #d4e9e2; border-radius: 12px; background: #fff; }
+.yakisoba-count-row dt { font-size: clamp(1rem, 3.5vw, 1.35rem); font-weight: 800; line-height: 1.6; }
+.yakisoba-count-value { display: flex; align-items: baseline; gap: 8px; margin: 0; white-space: nowrap; }
+.yakisoba-count-number { color: #08785b; font-size: clamp(2.2rem, 7vw, 3.7rem); font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.15; }
+.yakisoba-count-unit { font-size: 1.05rem; font-weight: 800; }
+.yakisoba-live-status { margin: 14px 0 0; color: var(--muted); font-size: .75rem; }
+.yakisoba-live.is-stale .yakisoba-live-status { color: #96531b; }
+.yakisoba-live-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--link); font-weight: 700; text-underline-offset: 4px; }
+@media (max-width: 480px) { .yakisoba-live { padding: 18px 14px; margin-bottom: 30px; } .yakisoba-count-row { padding: 16px 12px; gap: 8px; } .yakisoba-count-value { gap: 5px; } .yakisoba-live-description { font-size: .9rem; } }
