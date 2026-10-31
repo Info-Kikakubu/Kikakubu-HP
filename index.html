@@ -3,9 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="30">
   <title>デー祭2026</title>
   <script>
+    // 自動更新の直前にだけ印を付け、次の表示では起動演出を省略します。
+    const autoRefreshKey = "festival-auto-refresh";
+    try {
+      const automatic = sessionStorage.getItem(autoRefreshKey) === location.pathname;
+      sessionStorage.removeItem(autoRefreshKey);
+      if (automatic) document.documentElement.classList.add("auto-refreshed");
+    } catch {}
+    window.addEventListener("load", () => {
+      window.setTimeout(() => {
+        try { sessionStorage.setItem(autoRefreshKey, location.pathname); } catch {}
+        location.reload();
+      }, 30000);
+    }, { once: true });
     // 再読み込みでは、履歴のスクロール位置や以前の項目への移動を復元しません。
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     if (performance.getEntriesByType("navigation")[0]?.type === "reload") {
@@ -16,6 +28,7 @@
       window.addEventListener("pageshow", resetScroll, { once: true });
     }
   </script>
+  <style>html.auto-refreshed .boot-screen { display: none; } html.auto-refreshed body.booting { overflow: auto; }</style>
   <link rel="stylesheet" href="./styles/main.css?v=oct20d">
   <link rel="stylesheet" href="./styles/theme.css?v=figma-oct28a">
   <link rel="stylesheet" href="./styles/ui.css?v=food-programming-oct31b">
@@ -27,7 +40,7 @@
   <script defer src="./content/notices.js?v=rules-icons-oct29a"></script>
   <script defer src="./content/about.js?v=about-oct29a"></script>
   <script defer src="./content/ui.js?v=food-programming-oct31b"></script>
-  <script defer src="./scripts/ui.js?v=event-time-notes-oct30a"></script>
+  <script defer src="./scripts/ui.js?v=auto-boot-oct31a"></script>
   <script defer src="./scripts/code-background.js?v=code-typing-oct30a"></script>
   <link rel="stylesheet" href="./styles/yakisoba-live.css?v=counts-oct31b">
   <script defer src="./scripts/yakisoba-live.js?v=counts-oct31b"></script>

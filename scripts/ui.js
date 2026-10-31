@@ -656,7 +656,7 @@
       bootScreen.remove();
       playCatchcopyAnimation();
     };
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (document.documentElement.classList.contains("auto-refreshed") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       finishBoot();
     } else {
       const lines = [...bootScreen.querySelectorAll(".boot-line")];
