@@ -3,7 +3,7 @@
 .yakisoba-live > h2::before { content: ">_ "; color: var(--emerald); }
 .yakisoba-live-description { margin: 0 0 20px; color: var(--ink); }
 .yakisoba-live-viewport { position: relative; width: 100%; overflow: hidden; border-radius: 14px; background: #fff; }
-.yakisoba-live-stage { position: absolute; inset: 0 auto auto 0; width: 846px; height: 423px; overflow: hidden; transform-origin: 0 0; pointer-events: none; }
+.yakisoba-live-stage { position: absolute; inset: 0 auto auto 0; width: 846px; height: 129.34375px; overflow: hidden; transform-origin: 0 0; pointer-events: none; }
 .yakisoba-live-frame { position: absolute; left: -27px; top: -206.9375px; width: 900px; height: 800px; max-width: none; border: 0; pointer-events: none; }
 .yakisoba-live-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 14px; color: var(--link); font-weight: 700; text-underline-offset: 4px; }
 @media (max-width: 480px) {

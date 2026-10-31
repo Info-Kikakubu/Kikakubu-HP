@@ -1,4 +1,4 @@
-// 元の呼び出し画面を直接読み込み、デー祭食堂の店舗枠だけを表示します。
+// 元の呼び出し画面を直接読み込み、店舗名と準備中・受取可能の件数だけを表示します。
 (() => {
   "use strict";
   const projects = document.getElementById("projects");
@@ -19,7 +19,7 @@
   const stage = node("div", "", "yakisoba-live-stage");
   const frame = node("iframe", "", "yakisoba-live-frame");
   frame.src = displayUrl + "?shop=" + encodeURIComponent(shopId);
-  frame.title = "デー祭食堂の呼び出し状況（元画面から自動更新）";
+  frame.title = "デー祭食堂の準備中・受け取り可能の件数（自動更新）";
   frame.referrerPolicy = "no-referrer";
   frame.tabIndex = -1;
   // 周辺UIを含むiframeには直接入らず、リンクから元画面を操作できます。
@@ -34,7 +34,8 @@
   function resize() {
     const mobile = viewport.clientWidth <= 600;
     const width = mobile ? 376 : 846;
-    const height = mobile ? 422.046875 : 423;
+    // 件数見出しの下端まで表示し、番号一覧を含めません。
+    const height = mobile ? 115.4375 : 129.34375;
     stage.style.width = `${width}px`;
     stage.style.height = `${height}px`;
     frame.style.width = mobile ? "400px" : "900px";
